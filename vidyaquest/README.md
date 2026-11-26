@@ -1,21 +1,33 @@
-# Next.js template
+# VidyaQuest Web App
 
-This is a Next.js template with shadcn/ui.
+Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 frontend and role-based portal application for VidyaQuest.
 
-## Adding components
-
-To add components to your app, run the following command:
+## Getting Started
 
 ```bash
-npx shadcn@latest add button
+npm install
+npm run dev
 ```
 
-This will place the ui components in the `components` directory.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Using components
+## Key Routes
 
-To use the components in your app, import them as follows:
+| Route | Access | Description |
+|---|---|---|
+| `/` | Public | VidyaQuest landing page |
+| `/login` | Public | Role-based login (Student, Parent, Admin) |
+| `/student` | `student` | Frosted-glass Student CRM, Virtual World, 3D Virtual Labs & QuestBot 3D |
+| `/world` | Public / Student | Fullscreen gamified adventure world map |
+| `/parent` | `parent` | Parent analytics dashboard & parental controls |
+| `/admin` | `admin` | Admin executive console, RBAC directory & 3D lab governance |
+| `/unauthorized` | Authenticated | Access restricted notice on role mismatch |
 
-```tsx
-import { Button } from "@/components/ui/button";
-```
+## Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run start` — Start production server
+- `npm run typecheck` — Run TypeScript type checking (`tsc --noEmit`)
+- `npm run lint` — Run ESLint
+- `npm run format` — Format TypeScript/TSX files with Prettier
