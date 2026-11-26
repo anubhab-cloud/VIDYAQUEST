@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ohm's Law 3D DC Circuit Workbench — Physics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0b1120; color: #f8fafc; font-family: Inter, system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="canvas-container" class="fixed inset-0"></div>
+
+  <!-- Top HUD -->
+  <div class="pointer-events-none fixed inset-x-0 top-0 z-10 flex flex-wrap items-start justify-between gap-3 p-4">
+    <div class="pointer-events-auto rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-3 backdrop-blur-xl">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-sky-400">Physics · NCERT Class 10 & 12</span>
+      <h1 class="text-base font-bold text-white">Ohm's Law 3D Circuit Workbench</h1>
+      <p class="text-[11px] text-slate-300">Drag to orbit · Scroll to zoom · Adjust V & R to observe I = V / R</p>
+    </div>
+
+    <div class="pointer-events-auto grid grid-cols-3 gap-2 rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-2.5 text-center backdrop-blur-xl">
+      <div>
+        <span class="block text-[10px] text-slate-400">Current (I)</span>
+        <strong id="hud-current" class="text-sm font-bold text-emerald-400">1.50 A</strong>
+      </div>
+      <div>
+        <span class="block text-[10px] text-slate-400">Power (P)</span>
+        <strong id="hud-power" class="text-sm font-bold text-amber-400">9.00 W</strong>
+      </div>
+      <div>
+        <span class="block text-[10px] text-slate-400">Status</span>
+        <strong id="hud-status" class="text-sm font-bold text-sky-400">Closed</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Control Panel -->
+  <div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex flex-wrap items-end justify-between gap-3 p-4">
+    <div class="pointer-events-auto w-full max-w-sm space-y-3 rounded-2xl border border-white/15 bg-slate-900/80 p-4 backdrop-blur-xl">
+      <div>
+        <div class="flex justify-between text-xs font-semibold">
+          <span>Battery Voltage (V)</span>
+          <span id="val-v" class="text-sky-400">6.0 V</span>
+        </div>
+        <input id="slider-v" type="range" min="1" max="12" step="0.5" value="6" class="mt-1 w-full accent-sky-400" />
+      </div>
+      <div>
+        <div class="flex justify-between text-xs font-semibold">
+          <span>Resistor (R)</span>
+          <span id="val-r" class="text-amber-400">4.0 Ω</span>
+        </div>
+        <input id="slider-r" type="range" min="1" max="12" step="0.5" value="4" class="mt-1 w-full accent-amber-400" />
+      </div>
+      <div class="flex items-center justify-between pt-1">
+        <span class="text-xs text-slate-300">Circuit Switch</span>
+        <button id="btn-switch" class="rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 transition hover:bg-emerald-400 cursor-pointer">
+          Switch: ON
+        </button>
+      </div>
+    </div>
+
+    <div class="pointer-events-auto hidden max-w-xs rounded-2xl border border-white/15 bg-slate-900/75 p-4 text-xs text-slate-300 backdrop-blur-xl md:block">
+      <p class="font-bold text-white">Key Concept: V = I × R</p>
+      <p class="mt-1 leading-relaxed">Higher voltage increases electron drift speed and bulb luminosity; higher resistance restricts current flow.</p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById("canvas-container");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b1120);
+    scene.fog = new THREE.FogExp2(0x0b1120, 0.04);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 6.5, 9.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.maxPolarAngle = Math.PI / 2 - 0.05;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(5, 10, 6);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    // Lab Bench
+    const bench = new THREE.Mesh(
+      new THREE.BoxGeometry(10, 0.4, 6.5),
+      new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.7 })
+    );
+    bench.position.y = -0.2;
+    bench.receiveShadow = true;
+    scene.add(bench);
+    const grid = new THREE.GridHelper(10, 20, 0x334155, 0x1e293b);
+    grid.position.y = 0.01;
+    scene.add(grid);
+
+    // Battery Pack (-3, 0, 0)
+    const battery = new THREE.Mesh(
+      new THREE.BoxGeometry(1.1, 1.5, 1.1),
+      new THREE.MeshStandardMaterial({ color: 0x2563eb, metalness: 0.25, roughness: 0.4 })
+    );
+    battery.position.set(-3, 0.75, 0);
+    battery.castShadow = true;
+    scene.add(battery);
+    const cap = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.22, 0.22, 0.2, 16),
+      new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.6, roughness: 0.3 })
+    );
+    cap.position.set(-3, 1.6, 0);
+    scene.add(cap);
+
+    // Resistor (0, 0.4, -1.8)
+    const resistor = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.32, 0.32, 1.6, 20),
+      new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.5 })
+    );
+    resistor.rotation.z = Math.PI / 2;
+    resistor.position.set(0, 0.45, -1.8);
+    resistor.castShadow = true;
+    scene.add(resistor);
+
+    // Bulb (3, 0, 0)
+    const bulbBase = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.4, 0.45, 0.5, 20),
+      new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.7, roughness: 0.3 })
+    );
+    bulbBase.position.set(3, 0.25, 0);
+    scene.add(bulbBase);
+
+    const bulbMat = new THREE.MeshStandardMaterial({
+      color: 0xfef08a,
+      emissive: 0xf59e0b,
+      emissiveIntensity: 1.2,
+      transparent: true,
+      opacity: 0.92,
+    });
+    const bulbGlass = new THREE.Mesh(new THREE.SphereGeometry(0.65, 24, 24), bulbMat);
+    bulbGlass.position.set(3, 1.05, 0);
+    scene.add(bulbGlass);
+
+    const bulbLight = new THREE.PointLight(0xfbbf24, 2, 8);
+    bulbLight.position.set(3, 1.2, 0);
+    scene.add(bulbLight);
+
+    // Copper Wire Loop
+    const loopPts = [
+      new THREE.Vector3(-3, 0.25, 0),
+      new THREE.Vector3(-3, 0.25, -1.8),
+      new THREE.Vector3(3, 0.25, -1.8),
+      new THREE.Vector3(3, 0.25, 0),
+      new THREE.Vector3(3, 0.25, 1.8),
+      new THREE.Vector3(-3, 0.25, 1.8),
+      new THREE.Vector3(-3, 0.25, 0),
+    ];
+    const wireCurve = new THREE.CatmullRomCurve3(loopPts, true, "catmullrom", 0.12);
+    const wireMesh = new THREE.Mesh(
+      new THREE.TubeGeometry(wireCurve, 100, 0.06, 8, true),
+      new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.8, roughness: 0.25 })
+    );
+    scene.add(wireMesh);
+
+    // Electron Particles
+    const electrons = [];
+    const eGeo = new THREE.SphereGeometry(0.11, 12, 12);
+    const eMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+    for (let i = 0; i < 18; i++) {
+      const m = new THREE.Mesh(eGeo, eMat);
+      scene.add(m);
+      electrons.push({ mesh: m, t: i / 18 });
+    }
+
+    let voltage = 6;
+    let resistance = 4;
+    let switchOn = true;
+
+    const sliderV = document.getElementById("slider-v");
+    const sliderR = document.getElementById("slider-r");
+    const btnSwitch = document.getElementById("btn-switch");
+
+    function updateTelemetry() {
+      const current = switchOn ? voltage / resistance : 0;
+      const power = switchOn ? voltage * current : 0;
+      document.getElementById("val-v").textContent = voltage.toFixed(1) + " V";
+      document.getElementById("val-r").textContent = resistance.toFixed(1) + " Ω";
+      document.getElementById("hud-current").textContent = current.toFixed(2) + " A";
+      document.getElementById("hud-power").textContent = power.toFixed(2) + " W";
+      document.getElementById("hud-status").textContent = switchOn ? "Closed" : "Open";
+
+      const glow = Math.min(3.5, current * 0.65);
+      bulbMat.emissiveIntensity = switchOn ? glow : 0;
+      bulbLight.intensity = switchOn ? glow * 1.3 : 0;
+    }
+
+    sliderV.addEventListener("input", (e) => { voltage = parseFloat(e.target.value); updateTelemetry(); });
+    sliderR.addEventListener("input", (e) => { resistance = parseFloat(e.target.value); updateTelemetry(); });
+    btnSwitch.addEventListener("click", () => {
+      switchOn = !switchOn;
+      btnSwitch.textContent = switchOn ? "Switch: ON" : "Switch: OFF";
+      btnSwitch.className = switchOn
+        ? "rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 transition hover:bg-emerald-400 cursor-pointer"
+        : "rounded-lg bg-rose-500 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-rose-400 cursor-pointer";
+      updateTelemetry();
+    });
+
+    updateTelemetry();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const speed = switchOn ? (voltage / resistance) * 0.0022 : 0;
+      electrons.forEach((e) => {
+        e.t = (e.t + speed) % 1;
+        e.mesh.position.copy(wireCurve.getPointAt(e.t));
+        e.mesh.visible = switchOn;
+      });
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

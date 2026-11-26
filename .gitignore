@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+.next/
+**/.next/
+out/
+dist/
+**/dist/
+build/
+
+# TypeScript & logs
+*.tsbuildinfo
+**/*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+**/.env
+**/.env.*
+
+# OS / Editor
+.DS_Store
+Thumbs.db

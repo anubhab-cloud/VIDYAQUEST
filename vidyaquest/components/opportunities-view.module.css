@@ -1,0 +1,237 @@
+.page {
+  display: grid;
+  gap: 20px;
+  color: #172f50;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  overflow: hidden;
+  min-height: 166px;
+  padding: clamp(20px, 4vw, 38px);
+  border: 1px solid #28466c;
+  border-radius: var(--student-card-radius);
+  background:
+    radial-gradient(ellipse at 87% 20%, #35619a 0, transparent 48%),
+    linear-gradient(125deg, #142c4c, #203d68);
+  color: #fff;
+  box-shadow: var(--student-card-shadow);
+}
+
+.kicker {
+  color: #b6d5ff;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero h2 {
+  max-width: 30ch;
+  margin: 6px 0;
+  font-size: clamp(21px, 3vw, 31px);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.hero p {
+  margin: 8px 0 0;
+  color: #d4e3f7;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.art {
+  position: relative;
+  width: clamp(100px, 22vw, 220px);
+  height: 115px;
+  flex: none;
+  perspective: 460px;
+  pointer-events: none;
+}
+
+.platform,
+.compass,
+.cube {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+
+.platform {
+  inset: 50% auto auto 50%;
+  width: 118px;
+  height: 86px;
+  border: 1px solid #8cb9f0;
+  border-radius: 15px;
+  transform: translate(-50%, -30%) rotateX(56deg) rotateZ(-28deg);
+  background: linear-gradient(145deg, #93b9ef, #5783bf);
+  box-shadow:
+    0 9px 0 #335d95,
+    0 17px 20px #08162c8c;
+}
+
+.compass {
+  inset: 41% auto auto 49%;
+  width: 67px;
+  height: 67px;
+  border: 1px solid #ffeeae;
+  border-radius: 19px;
+  transform: translate(-50%, -50%) rotateX(14deg) rotateY(-24deg)
+    rotateZ(-12deg);
+  background: linear-gradient(145deg, #ffe59a, #e9aa49);
+  color: #583713;
+  box-shadow:
+    inset 0 2px #fff4d2,
+    4px 5px 0 #ac732f,
+    9px 15px 22px #102544a0;
+}
+
+.cube {
+  top: 32%;
+  left: 76%;
+  width: 22px;
+  aspect-ratio: 1;
+  border: 1px solid #c5e0ff;
+  border-radius: 5px;
+  transform: rotateX(24deg) rotateY(-29deg) rotateZ(16deg);
+  background: linear-gradient(145deg, #c3e8ff, #68a4df);
+  box-shadow: 4px 4px #396b9e;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filters button,
+.save {
+  min-height: 38px;
+  padding: 5px 13px;
+  border: 1px solid #c6d6e8;
+  border-radius: 9px;
+  background: #f8fbff;
+  color: #274669;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.filters button:hover,
+.save:hover {
+  background: #e6effa;
+}
+
+.filters button[aria-pressed="true"] {
+  border-color: #24486e;
+  background: #24486e;
+  color: #fff;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 345px), 1fr));
+  gap: 15px;
+}
+
+.card {
+  --category-color: #60389a;
+  --category-surface: #efe8fa;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(15px, 2vw, 23px);
+  border: 1px solid var(--student-card-line);
+  border-radius: var(--student-card-radius);
+  background: var(--student-card-surface);
+  box-shadow: var(--student-card-shadow);
+}
+
+.card[data-category="Hackathon"] {
+  --category-color: #23528c;
+  --category-surface: #e3effc;
+}
+.card[data-category="Scholarship"] {
+  --category-color: #785019;
+  --category-surface: #fcf0d8;
+}
+.card[data-category="Science Fair"] {
+  --category-color: #1c644f;
+  --category-surface: #e0f1e9;
+}
+
+.meta,
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #4e647d;
+  font-size: 12px;
+}
+
+.category {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--category-surface);
+  color: var(--category-color);
+  font-weight: 700;
+}
+
+.card h3 {
+  margin: 13px 0 5px;
+  font-size: 17px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.card p {
+  flex: 1;
+  margin: 0 0 16px;
+  color: #4e647d;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.cardFooter {
+  padding-top: 12px;
+  border-top: 1px solid var(--student-card-line);
+}
+
+.save[aria-pressed="true"] {
+  border-color: #e5c584;
+  background: #faedcc;
+  color: #734614;
+}
+
+.empty {
+  margin: 0;
+  color: #4e647d;
+}
+
+@media (max-width: 450px) {
+  .hero {
+    gap: 4px;
+  }
+  .art {
+    width: 77px;
+    transform: scale(0.63);
+    transform-origin: center;
+  }
+}
+
+@media (pointer: coarse) {
+  .filters button,
+  .save {
+    min-height: 44px;
+  }
+}

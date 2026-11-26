@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Solar System & Planetary Orbits — Astronomy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #050814; color: #f8fafc; font-family: Inter, system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="canvas-container" class="fixed inset-0"></div>
+
+  <div class="pointer-events-none fixed inset-x-0 top-0 z-10 flex flex-wrap items-start justify-between gap-3 p-4">
+    <div class="pointer-events-auto rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-3 backdrop-blur-xl">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-400">Astronomy · NASA Open Science</span>
+      <h1 class="text-base font-bold text-white">3D Solar System & Kepler Orbits</h1>
+      <p class="text-[11px] text-slate-300">Drag to orbit · Click any planet button to inspect</p>
+    </div>
+
+    <div class="pointer-events-auto max-w-xs rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-3 backdrop-blur-xl">
+      <p id="planet-name" class="text-sm font-bold text-amber-300">Earth (3rd Planet)</p>
+      <p id="planet-fact" class="mt-1 text-[11px] leading-relaxed text-slate-300">
+        Orbital Period: 365.25 days · Distance: 1.00 AU · Liquid water & protective magnetosphere.
+      </p>
+    </div>
+  </div>
+
+  <div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex flex-wrap items-end justify-between gap-3 p-4">
+    <div id="planet-buttons" class="pointer-events-auto flex flex-wrap gap-1.5 rounded-2xl border border-white/15 bg-slate-900/80 p-2 backdrop-blur-xl"></div>
+
+    <div class="pointer-events-auto w-56 rounded-2xl border border-white/15 bg-slate-900/80 p-3 backdrop-blur-xl">
+      <div class="flex justify-between text-xs font-semibold">
+        <span>Orbital Speed</span>
+        <span id="val-speed" class="text-indigo-400">1.0×</span>
+      </div>
+      <input id="slider-speed" type="range" min="0" max="4" step="0.2" value="1" class="mt-1 w-full accent-indigo-400" />
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById("canvas-container");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050814);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 300);
+    camera.position.set(0, 18, 28);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    const sunLight = new THREE.PointLight(0xfff3c4, 2.2, 120);
+    scene.add(sunLight);
+
+    // Starfield
+    const starGeo = new THREE.BufferGeometry();
+    const starVerts = [];
+    for (let i = 0; i < 600; i++) {
+      starVerts.push((Math.random() - 0.5) * 180, (Math.random() - 0.5) * 180, (Math.random() - 0.5) * 180);
+    }
+    starGeo.setAttribute("position", new THREE.Float32BufferAttribute(starVerts, 3));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x94a3b8, size: 0.25 })));
+
+    // Sun
+    const sun = new THREE.Mesh(
+      new THREE.SphereGeometry(2.4, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+    );
+    scene.add(sun);
+
+    const PLANETS = [
+      { name: "Mercury", r: 0.38, dist: 4.5, speed: 1.6, color: 0x94a3b8, fact: "Orbital Period: 88 days · Distance: 0.39 AU · Closest & fastest planet." },
+      { name: "Venus", r: 0.62, dist: 6.5, speed: 1.2, color: 0xf59e0b, fact: "Orbital Period: 225 days · Distance: 0.72 AU · Dense CO₂ greenhouse atmosphere." },
+      { name: "Earth", r: 0.68, dist: 8.8, speed: 1.0, color: 0x2563eb, fact: "Orbital Period: 365.25 days · Distance: 1.00 AU · Liquid water & protective magnetosphere." },
+      { name: "Mars", r: 0.48, dist: 11.2, speed: 0.8, color: 0xef4444, fact: "Orbital Period: 687 days · Distance: 1.52 AU · Iron-oxide surface & Olympus Mons." },
+      { name: "Jupiter", r: 1.35, dist: 15.0, speed: 0.45, color: 0xd97706, fact: "Orbital Period: 11.9 years · Distance: 5.20 AU · Largest gas giant." },
+      { name: "Saturn", r: 1.12, dist: 19.2, speed: 0.32, color: 0xfde68a, rings: true, fact: "Orbital Period: 29.5 years · Distance: 9.58 AU · Iconic ice-and-rock ring system." },
+    ];
+
+    const planetMeshes = PLANETS.map((p, idx) => {
+      const orbitPts = [];
+      for (let i = 0; i <= 72; i++) {
+        const a = (i / 72) * Math.PI * 2;
+        orbitPts.push(new THREE.Vector3(Math.cos(a) * p.dist, 0, Math.sin(a) * p.dist));
+      }
+      scene.add(new THREE.LineLoop(
+        new THREE.BufferGeometry().setFromPoints(orbitPts),
+        new THREE.LineBasicMaterial({ color: 0x334155 })
+      ));
+
+      const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(p.r, 24, 24),
+        new THREE.MeshStandardMaterial({ color: p.color, roughness: 0.6 })
+      );
+      if (p.rings) {
+        const ring = new THREE.Mesh(
+          new THREE.RingGeometry(p.r * 1.35, p.r * 2.1, 32),
+          new THREE.MeshBasicMaterial({ color: 0xfcd34d, side: THREE.DoubleSide, transparent: true, opacity: 0.7 })
+        );
+        ring.rotation.x = Math.PI / 2.4;
+        mesh.add(ring);
+      }
+      scene.add(mesh);
+      return { ...p, mesh, angle: idx * 1.1 };
+    });
+
+    const btnContainer = document.getElementById("planet-buttons");
+    PLANETS.forEach((p, idx) => {
+      const btn = document.createElement("button");
+      btn.textContent = p.name;
+      btn.className = "rounded-lg bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-indigo-500 cursor-pointer";
+      btn.onclick = () => {
+        document.getElementById("planet-name").textContent = `${p.name}`;
+        document.getElementById("planet-fact").textContent = p.fact;
+        const target = planetMeshes[idx].mesh.position;
+        controls.target.copy(target);
+      };
+      btnContainer.appendChild(btn);
+    });
+
+    let speedMul = 1;
+    document.getElementById("slider-speed").addEventListener("input", (e) => {
+      speedMul = parseFloat(e.target.value);
+      document.getElementById("val-speed").textContent = speedMul.toFixed(1) + "×";
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      planetMeshes.forEach((p) => {
+        p.angle += 0.008 * p.speed * speedMul;
+        p.mesh.position.set(Math.cos(p.angle) * p.dist, 0, Math.sin(p.angle) * p.dist);
+        p.mesh.rotation.y += 0.01;
+      });
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

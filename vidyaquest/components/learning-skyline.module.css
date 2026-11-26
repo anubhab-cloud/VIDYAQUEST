@@ -1,0 +1,244 @@
+.card {
+  --skyline-surface: var(--student-card-surface, #f8fbff);
+  --skyline-ink: #172d4a;
+  --skyline-muted: #536781;
+  --skyline-line: var(--student-card-line, #ccd9e8);
+  --skyline-soft: #e4edf8;
+  --skyline-stage: #d9e6f5;
+  --skyline-empty: #b5c7dc;
+  container-type: inline-size;
+  min-width: 0;
+  padding: clamp(14px, 2vw, 22px);
+  border: 1px solid var(--skyline-line);
+  border-radius: var(--student-card-radius, 18px);
+  background: var(--skyline-surface);
+  color: var(--skyline-ink);
+  box-shadow:
+    0 2px 3px #152d4710,
+    0 10px 26px -18px #152d4740;
+}
+
+:global(.dark) .card {
+  --skyline-surface: #13213a;
+  --skyline-ink: #eaf0fa;
+  --skyline-muted: #afc0d9;
+  --skyline-line: #2c4163;
+  --skyline-soft: #1b2d4c;
+  --skyline-stage: #1d304c;
+  --skyline-empty: #354b70;
+  color-scheme: dark;
+}
+
+.header,
+.toolbar,
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header h2 {
+  margin: 3px 0;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.header > div {
+  flex: 1 1 250px;
+  min-width: 0;
+}
+
+.header p {
+  margin: 0;
+  color: var(--skyline-muted);
+  font-size: 13px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+}
+
+.dataLabel {
+  padding: 2px 7px;
+  border: 1px solid var(--skyline-line);
+  border-radius: 6px;
+  background: var(--skyline-soft);
+  color: var(--skyline-ink);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.kicker {
+  color: var(--skyline-muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats div {
+  padding: 6px 9px;
+  border: 1px solid var(--skyline-line);
+  border-radius: 8px;
+  background: var(--skyline-soft);
+}
+
+.stats dt {
+  color: var(--skyline-muted);
+  font-size: 11px;
+}
+
+.stats dd {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.stage {
+  position: relative;
+  height: clamp(142px, 25cqi, 232px);
+  margin: 12px 0 8px;
+  overflow: hidden;
+  border: 1px solid var(--skyline-line);
+  border-radius: 12px;
+  background: radial-gradient(
+    ellipse at 40% 0%,
+    var(--skyline-soft),
+    var(--skyline-stage)
+  );
+  color: var(--skyline-muted);
+}
+
+.stage canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.stage canvas:active {
+  cursor: grabbing;
+}
+
+.tooltip {
+  position: absolute;
+  top: max(40px, var(--y));
+  left: clamp(105px, var(--x), 100% - 105px);
+  transform: translate(-50%, calc(-100% - 8px));
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: var(--skyline-ink);
+  color: var(--skyline-surface);
+  pointer-events: none;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.legend,
+.controls,
+.today,
+.details label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend,
+.details {
+  color: var(--skyline-muted);
+  font-size: 12px;
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.emptySwatch {
+  background: var(--skyline-empty);
+}
+.today {
+  margin-left: 6px;
+}
+.controls {
+  flex-wrap: wrap;
+}
+
+.controls button,
+.details input {
+  min-height: 34px;
+  padding: 4px 9px;
+  border: 1px solid var(--skyline-line);
+  border-radius: 7px;
+  background: var(--skyline-surface);
+  color: var(--skyline-ink);
+  font-size: 12px;
+}
+
+.controls button {
+  min-width: 34px;
+  cursor: pointer;
+}
+
+.controls button:hover,
+.controls button[aria-pressed="true"] {
+  background: var(--skyline-soft);
+}
+
+.controls button:focus-visible,
+.details input:focus-visible {
+  outline: 2px solid #4b86ea;
+  outline-offset: 2px;
+}
+
+.details {
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+
+@container (max-width: 520px) {
+  .stats {
+    width: 100%;
+  }
+}
+
+@container (max-width: 330px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (pointer: coarse) {
+  .controls button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .details input {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .autoRotate {
+    display: none;
+  }
+}

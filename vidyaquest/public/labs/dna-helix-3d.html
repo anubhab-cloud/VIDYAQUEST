@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D DNA Double Helix & Base Pairing — Biology</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0b1120; color: #f8fafc; font-family: Inter, system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="canvas-container" class="fixed inset-0"></div>
+
+  <div class="pointer-events-none fixed inset-x-0 top-0 z-10 flex flex-wrap items-start justify-between gap-3 p-4">
+    <div class="pointer-events-auto rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-3 backdrop-blur-xl">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-violet-400">Biology · Molecular Genetics 3D</span>
+      <h1 class="text-base font-bold text-white">DNA Double Helix & Base Pairing</h1>
+      <p class="text-[11px] text-slate-300">Drag to rotate · Chargaff's Rule: A=T & G≡C</p>
+    </div>
+
+    <div class="pointer-events-auto grid grid-cols-2 gap-2 rounded-2xl border border-white/15 bg-slate-900/75 px-4 py-2.5 text-xs backdrop-blur-xl">
+      <span class="flex items-center gap-1.5"><i class="h-2.5 w-2.5 rounded-full bg-rose-500"></i> Adenine (A)</span>
+      <span class="flex items-center gap-1.5"><i class="h-2.5 w-2.5 rounded-full bg-amber-400"></i> Thymine (T)</span>
+      <span class="flex items-center gap-1.5"><i class="h-2.5 w-2.5 rounded-full bg-emerald-400"></i> Guanine (G)</span>
+      <span class="flex items-center gap-1.5"><i class="h-2.5 w-2.5 rounded-full bg-sky-400"></i> Cytosine (C)</span>
+    </div>
+  </div>
+
+  <div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex flex-wrap items-end justify-between gap-3 p-4">
+    <div class="pointer-events-auto flex items-center gap-3 rounded-2xl border border-white/15 bg-slate-900/80 p-3 backdrop-blur-xl">
+      <button id="btn-spin" class="rounded-lg bg-violet-500 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-violet-400 cursor-pointer">
+        Auto-Rotate: ON
+      </button>
+      <div class="w-40">
+        <div class="flex justify-between text-[11px] font-semibold">
+          <span>Spin Speed</span>
+          <span id="val-spin" class="text-violet-400">1.0×</span>
+        </div>
+        <input id="slider-spin" type="range" min="0.2" max="3" step="0.2" value="1" class="w-full accent-violet-400" />
+      </div>
+    </div>
+
+    <div class="pointer-events-auto hidden max-w-xs rounded-2xl border border-white/15 bg-slate-900/75 p-4 text-xs text-slate-300 backdrop-blur-xl md:block">
+      <p class="font-bold text-white">Antiparallel Strands</p>
+      <p class="mt-1 leading-relaxed">Two sugar-phosphate backbones wind in opposite 5'→3' and 3'→5' directions, stabilized by hydrogen bonds between complementary bases.</p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById("canvas-container");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b1120);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1, 13);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+    const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+    dir.position.set(6, 10, 8);
+    scene.add(dir);
+
+    const dnaGroup = new THREE.Group();
+    scene.add(dnaGroup);
+
+    const pairs = [
+      [0xf43f5e, 0xfbbf24], // A-T
+      [0x34d399, 0x38bdf8], // G-C
+      [0xfbbf24, 0xf43f5e], // T-A
+      [0x38bdf8, 0x34d399], // C-G
+    ];
+
+    const steps = 22;
+    const radius = 2.0;
+    const heightStep = 0.48;
+
+    for (let i = 0; i < steps; i++) {
+      const y = (i - steps / 2) * heightStep;
+      const angle = i * 0.45;
+      const x1 = Math.cos(angle) * radius;
+      const z1 = Math.sin(angle) * radius;
+      const x2 = -x1;
+      const z2 = -z1;
+
+      const backboneMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.2, roughness: 0.35 });
+      const b1 = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 16), backboneMat);
+      b1.position.set(x1, y, z1);
+      const b2 = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 16), backboneMat);
+      b2.position.set(x2, y, z2);
+      dnaGroup.add(b1, b2);
+
+      const [c1, c2] = pairs[i % pairs.length];
+      const cylGeo = new THREE.CylinderGeometry(0.11, 0.11, radius, 12);
+
+      const leftBase = new THREE.Mesh(cylGeo, new THREE.MeshStandardMaterial({ color: c1, roughness: 0.4 }));
+      leftBase.position.set(x1 * 0.5, y, z1 * 0.5);
+      leftBase.rotation.z = Math.PI / 2;
+      leftBase.rotation.y = -angle;
+
+      const rightBase = new THREE.Mesh(cylGeo, new THREE.MeshStandardMaterial({ color: c2, roughness: 0.4 }));
+      rightBase.position.set(x2 * 0.5, y, z2 * 0.5);
+      rightBase.rotation.z = Math.PI / 2;
+      rightBase.rotation.y = -angle;
+
+      dnaGroup.add(leftBase, rightBase);
+    }
+
+    let autoSpin = true;
+    let spinSpeed = 1;
+    const btnSpin = document.getElementById("btn-spin");
+    btnSpin.addEventListener("click", () => {
+      autoSpin = !autoSpin;
+      btnSpin.textContent = autoSpin ? "Auto-Rotate: ON" : "Auto-Rotate: OFF";
+    });
+    document.getElementById("slider-spin").addEventListener("input", (e) => {
+      spinSpeed = parseFloat(e.target.value);
+      document.getElementById("val-spin").textContent = spinSpeed.toFixed(1) + "×";
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (autoSpin) dnaGroup.rotation.y += 0.008 * spinSpeed;
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

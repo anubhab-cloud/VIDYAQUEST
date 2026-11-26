@@ -1,0 +1,236 @@
+.viewport {
+  display: inline-grid;
+  width: calc(110px * var(--scale));
+  height: calc(105px * var(--scale));
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.viewport.interactive {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.interactive[data-dragging] {
+  cursor: grabbing;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  perspective: 360px;
+}
+
+.shadow {
+  position: absolute;
+  inset: auto 13% 10%;
+  height: 15%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #742c1360, transparent 72%);
+}
+
+.sizedModel,
+.motion,
+.pose,
+.sway {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.sizedModel {
+  transform: scale(var(--scale));
+}
+.motion {
+  animation: drift 3.8s ease-in-out;
+}
+
+.pose {
+  transform: rotateX(var(--pitch, -13deg)) rotateY(var(--yaw, -24deg));
+  transition: transform 180ms ease-out;
+}
+
+.sway {
+  animation: look-around 3.8s ease-in-out;
+}
+
+button:hover > .viewport[data-phase="idle"] .motion,
+.interactive[data-phase="idle"]:hover .motion {
+  animation-iteration-count: infinite;
+}
+
+button:hover > .viewport[data-phase="idle"] .sway,
+.interactive[data-phase="idle"]:hover .sway {
+  animation-iteration-count: infinite;
+}
+
+.viewport[data-phase="thinking"] .motion {
+  animation: drift 0.85s ease-in-out infinite;
+}
+.viewport[data-phase="thinking"] .sway {
+  animation: think 0.85s ease-in-out infinite;
+}
+.viewport[data-phase="reply"] .motion {
+  animation: hop 0.55s ease-out;
+}
+.viewport[data-dragging] :is(.motion, .sway) {
+  animation: none;
+}
+.viewport[data-dragging] .pose {
+  transition: none;
+}
+
+.voxel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--width);
+  height: var(--height);
+  transform: translate3d(var(--x), var(--y), var(--z));
+  transform-style: preserve-3d;
+}
+
+.voxel > span {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 0 1px #63240224;
+}
+
+.front {
+  background: linear-gradient(145deg, #f18824, #db6911);
+  transform: translateZ(calc(var(--depth) / 2));
+}
+
+.back {
+  background: #b64c09;
+  transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
+}
+
+.voxel > :is(.left, .right) {
+  left: calc((var(--width) - var(--depth)) / 2);
+  width: var(--depth);
+}
+
+.left {
+  background: #c7580b;
+  transform: rotateY(-90deg) translateZ(calc(var(--width) / 2));
+}
+
+.right {
+  background: linear-gradient(#dd6c13, #af4808);
+  transform: rotateY(90deg) translateZ(calc(var(--width) / 2));
+}
+
+.voxel > :is(.top, .bottom) {
+  top: calc((var(--height) - var(--depth)) / 2);
+  height: var(--depth);
+}
+
+.top {
+  background: linear-gradient(120deg, #ffb758, #f08c25);
+  transform: rotateX(90deg) translateZ(calc(var(--height) / 2));
+}
+
+.bottom {
+  background: #963607;
+  transform: rotateX(-90deg) translateZ(calc(var(--height) / 2));
+}
+
+.eye {
+  position: absolute;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: linear-gradient(145deg, #242125, #0c0b0f);
+  box-shadow:
+    1px 1px 0 #692a14,
+    inset 1px 1px 0 #ffffff24;
+}
+
+.eye:first-child {
+  left: 10px;
+}
+.eye:last-child {
+  right: 10px;
+}
+.viewport[data-phase="reply"] .eye {
+  animation: blink 0.42s 0.05s ease-out;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes look-around {
+  0%,
+  100% {
+    transform: rotateY(0);
+  }
+  35% {
+    transform: rotateY(39deg);
+  }
+  72% {
+    transform: rotateY(-18deg);
+  }
+}
+
+@keyframes think {
+  0%,
+  100% {
+    transform: rotateZ(0);
+  }
+  50% {
+    transform: rotateZ(-9deg) rotateY(13deg);
+  }
+}
+
+@keyframes hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  32% {
+    transform: translateY(-11px);
+  }
+  69% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  45%,
+  75%,
+  100% {
+    transform: scaleY(1);
+  }
+  58% {
+    transform: scaleY(0.13);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport[data-phase] :is(.motion, .sway, .eye),
+  button:hover > .viewport[data-phase="idle"] :is(.motion, .sway),
+  .interactive[data-phase="idle"]:hover :is(.motion, .sway) {
+    animation: none;
+  }
+  .pose {
+    transition: none;
+  }
+}

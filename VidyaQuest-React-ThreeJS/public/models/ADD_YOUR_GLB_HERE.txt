@@ -1,0 +1,1 @@
+Place VidyaQuest_OhmsLaw.glb in this folder. The app shows a procedural placeholder if it is absent.
