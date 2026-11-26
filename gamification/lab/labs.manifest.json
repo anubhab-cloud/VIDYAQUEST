@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "labs": [
+    {
+      "labId": "chem-acids-bases-properties",
+      "subjectSlug": "chemistry",
+      "associatedMissionSlugs": ["chem-1"],
+      "title": "Properties of Acids & Bases 3D Lab",
+      "description": "Test litmus paper, phenolphthalein, methyl orange, and pH strips on common acids and bases in an interactive 3D chemistry bench.",
+      "difficulty": "Intermediate",
+      "estimatedDurationMinutes": 12,
+      "enabled": true,
+      "labFormat": "html_3d",
+      "entryAsset": "vidyaquest_3d_chemistry_lab_properties_of_acids_and_bases.html",
+      "instructions": [
+        "Inspect the reagent bottles and pH indicator strips on the 3D lab bench.",
+        "Test at least two acidic solutions and observe the indicator color changes.",
+        "Test at least two basic solutions and compare their pH values.",
+        "Record your observations and complete the verification check below."
+      ],
+      "interactionConfig": {
+        "mode": "chemistry_ph_indicators",
+        "supportsRotation": true,
+        "supportsZoom": true,
+        "supportsReset": true,
+        "observationPrompts": [
+          "What color does blue litmus turn in an acid?",
+          "What pH range did you observe for basic solutions?"
+        ]
+      },
+      "completionCriteria": {
+        "minStepsCompleted": 3,
+        "minObservations": 1,
+        "verificationQuestions": [
+          {
+            "id": "q1",
+            "prompt": "Which indicator turns pink/magenta in a basic (alkaline) solution?",
+            "options": ["Blue litmus", "Phenolphthalein", "Distilled water"],
+            "correctIndex": 1
+          },
+          {
+            "id": "q2",
+            "prompt": "A solution with pH 2 is classified as:",
+            "options": ["Strongly acidic", "Neutral", "Strongly basic"],
+            "correctIndex": 0
+          }
+        ]
+      }
+    },
+    {
+      "labId": "chem-acid-base-titration",
+      "subjectSlug": "chemistry",
+      "associatedMissionSlugs": ["chem-2"],
+      "title": "3D Acid-Base Titration Laboratory",
+      "description": "Perform a controlled burette titration, add indicator drops, swirl the conical flask, and detect the exact neutralization endpoint.",
+      "difficulty": "Advanced",
+      "estimatedDurationMinutes": 15,
+      "enabled": true,
+      "labFormat": "html_3d",
+      "entryAsset": "vidyaquest_3d_acid_base_titration_lab.html",
+      "instructions": [
+        "Set up the burette and conical flask with the analyte and indicator.",
+        "Open the stopcock to add titrant gradually while swirling the flask.",
+        "Slow down near the endpoint until a faint persistent color change appears.",
+        "Record the final burette reading and verify your titration result."
+      ],
+      "interactionConfig": {
+        "mode": "chemistry_titration",
+        "supportsRotation": true,
+        "supportsZoom": true,
+        "supportsReset": true,
+        "observationPrompts": [
+          "What burette volume (mL) was required to reach the endpoint?",
+          "How did the indicator color change at neutralization?"
+        ]
+      },
+      "completionCriteria": {
+        "minStepsCompleted": 3,
+        "minObservations": 1,
+        "verificationQuestions": [
+          {
+            "id": "q1",
+            "prompt": "Why do we add titrant drop-by-drop near the titration endpoint?",
+            "options": [
+              "To avoid overshooting the exact neutralization volume",
+              "To evaporate the indicator",
+              "To cool down the burette"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q2",
+            "prompt": "At the equivalence point of a strong acid–strong base titration, the pH is:",
+            "options": ["1", "7", "14"],
+            "correctIndex": 1
+          }
+        ]
+      }
+    },
+    {
+      "labId": "bio-leaf-stomata-mount",
+      "subjectSlug": "biology",
+      "associatedMissionSlugs": ["bio-1"],
+      "title": "Temporary Mount of Leaf Peel (Stomata) 3D Lab",
+      "description": "Prepare a temporary leaf peel mount, stain with safranin, focus under the 3D compound microscope, and inspect guard cells and stomata.",
+      "difficulty": "Beginner",
+      "estimatedDurationMinutes": 10,
+      "enabled": true,
+      "labFormat": "html_3d",
+      "entryAsset": "temporary_mount_of_leaf_peel_stomata_3d_lab (2).html",
+      "instructions": [
+        "Peel the lower epidermis of the leaf and place it on the glass slide.",
+        "Add stain and glycerin, then gently lower the coverslip without air bubbles.",
+        "Focus the 3D microscope from low power to high power to view stomata.",
+        "Record your observation of the guard cells and complete the check."
+      ],
+      "interactionConfig": {
+        "mode": "biology_microscopy",
+        "supportsRotation": true,
+        "supportsZoom": true,
+        "supportsReset": true,
+        "observationPrompts": [
+          "Describe the shape of the guard cells surrounding each stomatal pore."
+        ]
+      },
+      "completionCriteria": {
+        "minStepsCompleted": 3,
+        "minObservations": 1,
+        "verificationQuestions": [
+          {
+            "id": "q1",
+            "prompt": "Which cells control the opening and closing of a stomatal pore?",
+            "options": ["Guard cells", "Xylem vessels", "Root hairs"],
+            "correctIndex": 0
+          },
+          {
+            "id": "q2",
+            "prompt": "Why is glycerin used when mounting the stained leaf peel?",
+            "options": [
+              "To prevent the specimen from drying out",
+              "To dissolve the chlorophyll",
+              "To increase magnification"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      }
+    },
+    {
+      "labId": "bio-human-heart-3d",
+      "subjectSlug": "biology",
+      "associatedMissionSlugs": ["bio-2"],
+      "title": "Human Heart 3D Anatomy & Circulation Lab",
+      "description": "Rotate, zoom, and inspect the 4 chambers, valves, aorta, and pulmonary vessels of the 3D human heart.",
+      "difficulty": "Master",
+      "estimatedDurationMinutes": 12,
+      "enabled": true,
+      "labFormat": "html_3d",
+      "entryAsset": "ncert_class_10_3d_human_heart_model.html",
+      "instructions": [
+        "Rotate and zoom the 3D heart model to inspect both anterior and posterior views.",
+        "Select labels for the Right Atrium, Right Ventricle, Left Atrium, and Left Ventricle.",
+        "Trace the path of deoxygenated and oxygenated blood through the vessels.",
+        "Record your findings and complete the circulation check."
+      ],
+      "interactionConfig": {
+        "mode": "biology_anatomy",
+        "supportsRotation": true,
+        "supportsZoom": true,
+        "supportsReset": true,
+        "observationPrompts": [
+          "Which chamber has the thickest muscular wall and why?"
+        ]
+      },
+      "completionCriteria": {
+        "minStepsCompleted": 3,
+        "minObservations": 1,
+        "verificationQuestions": [
+          {
+            "id": "q1",
+            "prompt": "Which chamber pumps oxygenated blood into the aorta for the entire body?",
+            "options": ["Right Atrium", "Left Ventricle", "Right Ventricle"],
+            "correctIndex": 1
+          },
+          {
+            "id": "q2",
+            "prompt": "Which vessel carries deoxygenated blood from the heart to the lungs?",
+            "options": ["Pulmonary artery", "Aorta", "Pulmonary vein"],
+            "correctIndex": 0
+          }
+        ]
+      }
+    }
+  ]
+}
