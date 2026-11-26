@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  --vq-navy: #071426;
+  --vq-midnight: #0d1b2d;
+  --vq-surface: #13253d;
+  --vq-border: #233b59;
+  --vq-gold: #f5b900;
+  --vq-parchment: #e9dfc7;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--vq-navy);
+  color: #f3efe6;
+  font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* Tactile RPG panel & parchment scroll surfaces */
+.vq-panel {
+  background-color: #0d1b2d;
+  border: 1px solid #233b59;
+  box-shadow: 0 10px 26px rgba(3, 9, 18, 0.45);
+}
+
+.vq-parchment {
+  background-color: #e9dfc7;
+  color: #1c1914;
+  border: 2px solid #b89d68;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 8px 20px rgba(3, 9, 18, 0.4);
+}
+
+/* Clean custom scrollbars for inventory and quest logs */
+.vq-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.vq-scroll::-webkit-scrollbar-track {
+  background: #071426;
+}
+.vq-scroll::-webkit-scrollbar-thumb {
+  background: #274060;
+  border-radius: 3px;
+}
+.vq-scroll::-webkit-scrollbar-thumb:hover {
+  background: #f5b900;
+}
+
+/* Subtle unlock reveal */
+@keyframes vq-unlock-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.vq-unlock-reveal {
+  animation: vq-unlock-pop 0.25s ease-out;
+}
+
+/* Accessibility: font scaling, high contrast, reduced motion */
+[data-vq-font="small"] {
+  font-size: 14px;
+}
+[data-vq-font="large"] {
+  font-size: 18px;
+}
+
+[data-vq-contrast="high"] .vq-panel {
+  background-color: #040b16;
+  border-color: #f5b900;
+}
+
+[data-vq-motion="reduced"] *,
+[data-vq-motion="reduced"] *::before,
+[data-vq-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vq-unlock-reveal {
+    animation: none;
+  }
+}
