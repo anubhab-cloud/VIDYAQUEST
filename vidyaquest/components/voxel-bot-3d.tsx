@@ -100,22 +100,22 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
           onKeyDown={(event) => {
             if (event.key === "Escape") close()
           }}
-          className="w-[min(370px,calc(100vw_-_2rem))] overflow-hidden rounded-3xl border border-orange-200 bg-white shadow-[0_24px_60px_rgba(23,45,74,0.22)]"
+          className="w-[min(370px,calc(100vw_-_2rem))] overflow-hidden rounded-3xl border border-orange-200 bg-[color:var(--vq-surface)] shadow-[0_24px_60px_rgba(23,45,74,0.22)]"
         >
           {/* Header with Interactive 3D Mascot */}
-          <div className="flex items-center justify-between border-b border-white/70 bg-gradient-to-r from-[#fff7ed]/90 via-[#ffedd5]/80 to-[#fef3c7]/80 px-4 py-2.5">
+          <div className="flex items-center justify-between border-b border-[color:light-dark(#fff,var(--vq-border))]/70 bg-gradient-to-r from-[color:light-dark(#fff7ed,var(--vq-tone-amber))]/90 via-[color:light-dark(#ffedd5,var(--vq-tone-amber))]/80 to-[color:light-dark(#fef3c7,var(--vq-tone-amber))]/80 px-4 py-2.5">
             <div className="flex items-center gap-2">
               <VoxelMascot3D scale={0.68} phase={phase} />
               <div>
                 <h2
                   id={`${id}-title`}
-                  className="text-sm font-extrabold text-[#172d4a]"
+                  className="text-sm font-extrabold text-[color:light-dark(#172d4a,var(--vq-ink))]"
                 >
                   QuestBot 3D
                 </h2>
                 <p
                   role="status"
-                  className="text-[11px] font-medium text-[#9a3412]"
+                  className="text-[11px] font-medium text-[color:light-dark(#9a3412,var(--vq-accent-amber))]"
                 >
                   {thinking ? "Thinking…" : "Drag or tap QuestBot to turn it"}
                 </p>
@@ -126,7 +126,7 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
               ref={closeButton}
               onClick={close}
               aria-label="Close 3D chatbot"
-              className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-white/80 text-xs font-bold text-slate-600 hover:bg-white"
+              className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-[color:var(--vq-surface)]/80 text-xs font-bold text-[color:var(--vq-muted)] hover:bg-[color:var(--vq-surface)]"
             >
               ✕
             </button>
@@ -150,7 +150,7 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
                   className={`max-w-[82%] rounded-2xl px-3.5 py-2 text-xs leading-relaxed wrap-anywhere ${
                     msg.sender === "student"
                       ? "bg-[#111827] text-white"
-                      : "border border-white/90 bg-white/90 text-[#172d4a] shadow-sm"
+                      : "border border-[color:light-dark(#fff,var(--vq-border))]/90 bg-[color:var(--vq-surface)]/90 text-[color:light-dark(#172d4a,var(--vq-ink))] shadow-sm"
                   }`}
                 >
                   {msg.text}
@@ -168,7 +168,7 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
                   type="button"
                   disabled={thinking}
                   onClick={() => sendPrompt(chip)}
-                  className="cursor-pointer rounded-full border border-orange-200 bg-orange-50 px-2.5 py-1 text-[10px] font-semibold text-[#9a3412] hover:bg-orange-100 disabled:opacity-60"
+                  className="cursor-pointer rounded-full border border-orange-200 bg-[color:light-dark(var(--color-orange-50),var(--vq-tone-amber))] px-2.5 py-1 text-[10px] font-semibold text-[color:light-dark(#9a3412,var(--vq-accent-amber))] hover:bg-[color:light-dark(var(--color-orange-100),var(--vq-tone-amber))] disabled:opacity-60"
                 >
                   {chip}
                 </button>
@@ -179,7 +179,7 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
           {/* Input */}
           <form
             onSubmit={handleSubmit}
-            className="flex gap-2 border-t border-white/70 bg-white/60 p-3"
+            className="flex gap-2 border-t border-[color:light-dark(#fff,var(--vq-border))]/70 bg-[color:var(--vq-surface)]/60 p-3"
           >
             <input
               type="text"
@@ -189,7 +189,7 @@ export function FloatingVoxelChatbot({ studentName }: { studentName: string }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask QuestBot 3D…"
-              className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-[#172d4a] placeholder:text-slate-500"
+              className="min-w-0 flex-1 rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:var(--vq-surface)] px-3 py-2 text-xs text-[color:light-dark(#172d4a,var(--vq-ink))] placeholder:text-[color:var(--vq-muted)]"
             />
             <button
               type="submit"

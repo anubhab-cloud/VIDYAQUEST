@@ -16,6 +16,7 @@ import {
 } from "@/lib/student-data"
 import { StudentDashboard, StudentIcon, labelByTab } from "@/components/student-dashboard"
 import { FloatingVoxelChatbot } from "@/components/voxel-bot-3d"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter, StudentBrand } from "@/components/site-footer"
 import { useStudentActivity } from "@/hooks/use-student-activity"
 import { dayTime, getActivityWeek, localActivityDate } from "@/lib/student-activity"
@@ -185,6 +186,7 @@ export function StudentCrm({ user, previewDate }: { user: Pick<SessionUser, "id"
         <div className="student-top-actions">
           {isOverview && <label className="top-search"><StudentIcon name="search" size={16}/><input type="search" name="learning-search" autoComplete="off" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search learning paths…" aria-label="Search learning paths"/></label>}
           <div className="student-notification-wrap"><button type="button" className="student-notification" aria-label={`Notifications${unreadCount ? `, ${unreadCount} unread` : ""}`} aria-expanded={showNotif} onClick={() => setShowNotif((visible) => !visible)}><StudentIcon name="bell" size={17}/>{unreadCount > 0 && <i/>}</button>{showNotif && <div className="notification-popover"><b>{unreadCount} unread update{unreadCount === 1 ? "" : "s"}</b>{messages.filter((message) => message.unread).slice(0, 2).map((message) => <button type="button" key={message.id} onClick={() => { setShowNotif(false); selectTab("inbox") }}><span>{message.subject}</span><small>{message.time}</small></button>)}{unreadCount === 0 && <span className="notification-empty">You’re all caught up.</span>}</div>}</div>
+          <ThemeToggle />
           <button className="student-user-chip" type="button" onClick={() => selectTab("settings")} aria-label="Open profile settings"><span>{user.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span><b>{firstName}</b><StudentIcon name="settings" size={15}/></button>
         </div>
       </header>

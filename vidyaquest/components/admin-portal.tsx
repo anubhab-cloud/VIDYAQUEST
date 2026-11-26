@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { useRouter } from "next/navigation"
 import type { SessionUser, UserRole } from "@/lib/auth"
 import { OPEN_SOURCE_3D_MODELS } from "@/lib/virtual-labs-3d-catalog"
@@ -118,9 +119,9 @@ export function AdminPortal({ user }: { user: SessionUser }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f7fb] text-[#172d4a]">
+    <div className="min-h-screen bg-[color:light-dark(#f4f7fb,var(--vq-page))] text-[color:light-dark(#172d4a,var(--vq-ink))]">
       {/* Top Navigation */}
-      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-[#172d4a] text-white">
+      <header className="sticky top-0 z-30 border-b border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[#172d4a] text-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
           <div className="flex items-center gap-4">
             <Link
@@ -137,7 +138,8 @@ export function AdminPortal({ user }: { user: SessionUser }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
             <div className="hidden text-right md:block">
               <p className="text-xs font-bold text-white">{user.name}</p>
               <p className="text-[11px] text-slate-300">{user.email}</p>
@@ -169,7 +171,7 @@ export function AdminPortal({ user }: { user: SessionUser }) {
               aria-pressed={activeTab === tab.id}
               className={`min-h-11 shrink-0 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-white text-[#172d4a] shadow-sm"
+                  ? "bg-[color:var(--vq-surface)] text-[color:light-dark(#172d4a,var(--vq-ink))] shadow-sm"
                   : "text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
@@ -189,35 +191,35 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                   label: "Active Students",
                   value: "2,480",
                   delta: "+18.4% this term",
-                  tone: "text-blue-600 bg-blue-50",
+                  tone: "text-[color:light-dark(var(--color-blue-600),var(--vq-accent-blue))] bg-[color:light-dark(var(--color-blue-50),var(--vq-tone-blue))]",
                 },
                 {
                   label: "Connected Parents",
                   value: "1,890",
                   delta: "76% family adoption",
-                  tone: "text-emerald-600 bg-emerald-50",
+                  tone: "text-[color:light-dark(var(--color-emerald-600),var(--vq-accent-green))] bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))]",
                 },
                 {
                   label: "3D Lab Sessions",
                   value: "14,320",
                   delta: "20 open-source models",
-                  tone: "text-violet-600 bg-violet-50",
+                  tone: "text-[color:light-dark(var(--color-violet-600),var(--vq-accent-purple))] bg-[color:light-dark(var(--color-violet-50),var(--vq-tone-purple))]",
                 },
                 {
                   label: "Avg. Engagement",
                   value: "89.4%",
                   delta: "+4.2% vs benchmark",
-                  tone: "text-amber-700 bg-amber-50",
+                  tone: "text-[color:light-dark(var(--color-amber-700),var(--vq-accent-amber))] bg-[color:light-dark(var(--color-amber-50),var(--vq-tone-amber))]",
                 },
               ].map((kpi) => (
                 <div
                   key={kpi.label}
-                  className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm"
+                  className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-5 shadow-sm"
                 >
-                  <p className="text-xs font-semibold text-slate-500">
+                  <p className="text-xs font-semibold text-[color:var(--vq-muted)]">
                     {kpi.label}
                   </p>
-                  <p className="mt-2 text-3xl font-extrabold tracking-tight text-[#172d4a]">
+                  <p className="mt-2 text-3xl font-extrabold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]">
                     {kpi.value}
                   </p>
                   <span
@@ -230,12 +232,12 @@ export function AdminPortal({ user }: { user: SessionUser }) {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr]">
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
                 <div className="mb-4">
-                  <h2 className="text-base font-bold text-[#172d4a]">
+                  <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                     Platform Growth & Active Learners
                   </h2>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-[color:var(--vq-muted)]">
                     Monthly active Students vs. Parent Portal engagement
                   </p>
                 </div>
@@ -256,11 +258,11 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                 />
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   Role & License Distribution
                 </h2>
-                <p className="mb-4 text-xs text-slate-500">
+                <p className="mb-4 text-xs text-[color:var(--vq-muted)]">
                   Active RBAC accounts across VidyaQuest
                 </p>
                 <ModernDonutChart
@@ -277,11 +279,11 @@ export function AdminPortal({ user }: { user: SessionUser }) {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   3D Virtual Lab Sessions by Subject
                 </h2>
-                <p className="mb-4 text-xs text-slate-500">
+                <p className="mb-4 text-xs text-[color:var(--vq-muted)]">
                   Usage across the 20 curated open-source 3D models
                 </p>
                 <ModernBarChart
@@ -295,11 +297,11 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                 />
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   School-Wide Cohort Mastery
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[color:var(--vq-muted)]">
                   Average assessment & lab mastery across grades
                 </p>
                 <div className="mt-2">
@@ -322,13 +324,13 @@ export function AdminPortal({ user }: { user: SessionUser }) {
 
         {/* USERS & RBAC TAB */}
         {activeTab === "users" && (
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <h2 className="text-base font-bold text-[#172d4a]">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   User Directory & Role-Based Access Control
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[color:var(--vq-muted)]">
                   Manage Student, Parent, and Admin permissions
                 </p>
               </div>
@@ -339,9 +341,9 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                   value={userSearch}
                   onChange={(e) => setUserSearch(e.target.value)}
                   placeholder="Search name or email..."
-                  className="rounded-xl border border-slate-200 px-3 py-1.5 text-xs focus:border-[#2563eb] focus:outline-none"
+                  className="rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] px-3 py-1.5 text-xs focus:border-[#2563eb] focus:outline-none"
                 />
-                <div className="flex gap-1 rounded-lg bg-slate-100 p-1">
+                <div className="flex gap-1 rounded-lg bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))] p-1">
                   {(["all", "student", "parent", "admin"] as const).map((r) => (
                     <button
                       key={r}
@@ -349,8 +351,8 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                       onClick={() => setRoleFilter(r)}
                       className={`rounded-md px-2.5 py-1 text-[11px] font-semibold capitalize cursor-pointer ${
                         roleFilter === r
-                          ? "bg-white text-[#172d4a] shadow-sm"
-                          : "text-slate-500"
+                          ? "bg-[color:var(--vq-surface)] text-[color:light-dark(#172d4a,var(--vq-ink))] shadow-sm"
+                          : "text-[color:var(--vq-muted)]"
                       }`}
                     >
                       {r}
@@ -363,7 +365,7 @@ export function AdminPortal({ user }: { user: SessionUser }) {
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 text-slate-400">
+                  <tr className="border-b border-[color:light-dark(var(--color-slate-200),var(--vq-border))] text-[color:var(--vq-subtle)]">
                     <th className="py-3 font-semibold">User</th>
                     <th className="py-3 font-semibold">Role</th>
                     <th className="py-3 font-semibold">Cohort / Scope</th>
@@ -371,25 +373,25 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                     <th className="py-3 text-right font-semibold">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[color:light-dark(var(--color-slate-100),var(--vq-border))]">
                   {filteredUsers.map((u) => (
                     <tr key={u.id}>
                       <td className="py-3">
-                        <p className="font-bold text-[#172d4a]">{u.name}</p>
-                        <p className="text-[11px] text-slate-500">{u.email}</p>
+                        <p className="font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">{u.name}</p>
+                        <p className="text-[11px] text-[color:var(--vq-muted)]">{u.email}</p>
                       </td>
                       <td className="py-3">
-                        <span className="rounded-md bg-slate-100 px-2.5 py-1 font-mono text-[10px] font-bold uppercase text-[#172d4a]">
+                        <span className="rounded-md bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))] px-2.5 py-1 font-mono text-[10px] font-bold uppercase text-[color:light-dark(#172d4a,var(--vq-ink))]">
                           {u.role}
                         </span>
                       </td>
-                      <td className="py-3 text-slate-600">{u.cohort}</td>
+                      <td className="py-3 text-[color:var(--vq-muted)]">{u.cohort}</td>
                       <td className="py-3">
                         <span
                           className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
                             u.active
-                              ? "bg-emerald-50 text-emerald-700"
-                              : "bg-rose-50 text-rose-700"
+                              ? "bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))] text-[color:light-dark(var(--color-emerald-700),var(--vq-accent-green))]"
+                              : "bg-[color:light-dark(var(--color-rose-50),var(--vq-tone-red))] text-[color:light-dark(var(--color-rose-700),var(--vq-accent-red))]"
                           }`}
                         >
                           {u.active ? "Active" : "Suspended"}
@@ -399,7 +401,7 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                         <button
                           type="button"
                           onClick={() => toggleUserStatus(u.id)}
-                          className="rounded-lg border border-slate-200 px-3 py-1 text-[11px] font-semibold text-[#172d4a] hover:bg-slate-50 cursor-pointer"
+                          className="rounded-lg border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] px-3 py-1 text-[11px] font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))] hover:bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))] cursor-pointer"
                         >
                           {u.active ? "Suspend" : "Activate"}
                         </button>
@@ -414,13 +416,13 @@ export function AdminPortal({ user }: { user: SessionUser }) {
 
         {/* CURRICULUM & 3D LABS TAB */}
         {activeTab === "curriculum" && (
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <h2 className="text-base font-bold text-[#172d4a]">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   Open-Source 3D Model Catalog Governance
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[color:var(--vq-muted)]">
                   Control which verified 3D study models are published to
                   students ({OPEN_SOURCE_3D_MODELS.length} models total)
                 </p>
@@ -433,28 +435,28 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                 return (
                   <div
                     key={model.id}
-                    className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-slate-50/50 p-4"
+                    className="flex flex-col justify-between rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))]/50 p-4"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="rounded bg-blue-50 px-2 py-0.5 text-[10px] font-bold uppercase text-blue-700">
+                        <span className="rounded bg-[color:light-dark(var(--color-blue-50),var(--vq-tone-blue))] px-2 py-0.5 text-[10px] font-bold uppercase text-[color:light-dark(var(--color-blue-700),var(--vq-accent-blue))]">
                           {model.subject}
                         </span>
-                        <span className="text-[10px] font-semibold text-slate-400">
+                        <span className="text-[10px] font-semibold text-[color:var(--vq-subtle)]">
                           {model.licenseBadge}
                         </span>
                       </div>
-                      <p className="mt-2 text-sm font-bold text-[#172d4a]">
+                      <p className="mt-2 text-sm font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                         {model.title}
                       </p>
-                      <p className="mt-0.5 text-[11px] text-slate-500">
+                      <p className="mt-0.5 text-[11px] text-[color:var(--vq-muted)]">
                         {model.source}
                       </p>
                     </div>
-                    <div className="mt-3 flex items-center justify-between border-t border-slate-200/60 pt-2.5">
+                    <div className="mt-3 flex items-center justify-between border-t border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/60 pt-2.5">
                       <span
                         className={`text-[11px] font-semibold ${
-                          isPub ? "text-emerald-600" : "text-slate-400"
+                          isPub ? "text-[color:light-dark(var(--color-emerald-600),var(--vq-accent-green))]" : "text-[color:var(--vq-subtle)]"
                         }`}
                       >
                         {isPub ? "● Published" : "○ Draft"}
@@ -462,7 +464,7 @@ export function AdminPortal({ user }: { user: SessionUser }) {
                       <button
                         type="button"
                         onClick={() => toggleModulePublish(model.id)}
-                        className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-semibold text-[#172d4a] hover:bg-slate-100 cursor-pointer"
+                        className="rounded-lg border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:var(--vq-surface)] px-2.5 py-1 text-[11px] font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))] hover:bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))] cursor-pointer"
                       >
                         {isPub ? "Unpublish" : "Publish"}
                       </button>
@@ -495,11 +497,11 @@ export function AdminPortal({ user }: { user: SessionUser }) {
 
         {/* AUDIT & SYSTEM TAB */}
         {activeTab === "audit" && (
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-base font-bold text-[#172d4a]">
+          <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+            <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
               Security, RBAC & Session Audit Log
             </h2>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-[color:var(--vq-muted)]">
               All portals enforce HMAC-SHA256 HTTP-only cookie verification and
               server-side role guards.
             </p>
@@ -513,7 +515,7 @@ export function AdminPortal({ user }: { user: SessionUser }) {
               ].map((line) => (
                 <div
                   key={line}
-                  className="rounded-lg border border-slate-200/80 bg-slate-50 px-3.5 py-2.5 text-slate-700"
+                  className="rounded-lg border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))] px-3.5 py-2.5 text-[color:var(--vq-ink)]"
                 >
                   {line}
                 </div>

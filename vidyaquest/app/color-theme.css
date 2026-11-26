@@ -1,0 +1,185 @@
+:root {
+  --vq-page: #f4f7fb;
+  --vq-surface: #fff;
+  --vq-raised: #f1f5fa;
+  --vq-border: #dbe4ef;
+  --vq-ink: #172d4a;
+  --vq-muted: #536781;
+  --vq-subtle: #607691;
+  --vq-link: #2563eb;
+  --vq-shadow: 0 1px 3px #142f4d14;
+  --vq-tone-blue: #19365b;
+  --vq-tone-green: #12392f;
+  --vq-tone-purple: #302749;
+  --vq-tone-amber: #40301c;
+  --vq-tone-red: #432631;
+  --vq-accent-blue: #a8cbff;
+  --vq-accent-green: #8fe5bf;
+  --vq-accent-purple: #cfbfff;
+  --vq-accent-amber: #f6d097;
+  --vq-accent-red: #ffb2be;
+  color-scheme: light;
+}
+
+.dark {
+  --vq-page: #0b1422;
+  --vq-surface: #142237;
+  --vq-raised: #1d3049;
+  --vq-border: #30455f;
+  --vq-ink: #e8f0fc;
+  --vq-muted: #aebfd6;
+  --vq-subtle: #9eb1cb;
+  --vq-link: #9cc3ff;
+  --vq-shadow: 0 1px 3px #0005;
+  color-scheme: dark;
+}
+
+.dark body {
+  background: var(--vq-page);
+  color: var(--vq-ink);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--vq-border);
+  border-radius: 9px;
+  background: var(--vq-surface);
+  color: var(--vq-ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover { background: var(--vq-raised); }
+.theme-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .theme-toggle-sun,
+.dark .theme-toggle .theme-toggle-moon { display: none; }
+.dark .theme-toggle .theme-toggle-sun { display: block; }
+.mobile-theme-toggle { display: none; }
+
+@media (max-width: 780px) {
+  .mobile-theme-toggle { display: inline-grid; margin-inline-start: auto; }
+}
+
+@media (max-width: 680px) {
+  .student-top-actions .theme-toggle { width: 36px; height: 36px; }
+}
+
+.dark :is(.site-header, .mobile-nav) {
+  border-color: var(--vq-border);
+  background: var(--vq-surface);
+}
+
+.dark :is(.hero-section, .problem-section, .world-section, .labs-section, .ai-section, .inclusion-section, .schools-section) {
+  background: var(--vq-page);
+}
+
+.dark :is(.values-strip, .ecosystem-section, .opportunities-section, .journey-section, .parents-section) {
+  border-color: var(--vq-border);
+  background: var(--vq-surface);
+}
+
+.dark :is(.problem-card, .pillar-item, .zone-card, .lab-product, .lab-subject, .chat-preview, .opportunity-card, .achievement-board, .access-chip, .journey-step, .dashboard-preview, .dashboard-stats > div, .parent-phone, .quest-card) {
+  border-color: var(--vq-border);
+  background: var(--vq-surface);
+  box-shadow: var(--vq-shadow);
+}
+
+.dark :is(.ecosystem-core, .lab-window-top, .lab-sidebar, .canvas-top, .canvas-footer, .chat-top, .chat-context, .chat-input, .phone-progress, .phone-parent-note, .dashboard-note, .xp-card, .sample-tag, .demo-pill) {
+  border-color: var(--vq-border);
+  background: var(--vq-raised);
+}
+
+.dark :is(.brand, .menu-toggle, .hero-copy h1, .hero-copy strong, .text-link, .section-title h2, .problem-card h3, .pillar-item h3, .zone-content h3, .lab-subject b, .experiment-name, .component-row b, .chat-top b, .chat-context b, .opportunity-card h3, .achievement-board, .journey-step h3, .dashboard-logo, .dashboard-welcome b, .dashboard-stats b, .activity-heading b, .phone-header, .phone-greeting b, .phone-moment b, .phone-nav, .quest-card b) {
+  color: var(--vq-ink);
+}
+
+.dark :is(.desktop-nav a, .login-link, .mobile-nav a:not(.mobile-cta), .hero-copy p, .hero-bottom-line, .section-title p, .problem-card p, .pillar-item p, .zone-content p, .lab-footnote, .lab-subject small, .component-row, .canvas-top, .canvas-footer > span, .chat-top span, .chat-context small, .chat-input, .opportunity-card p, .opportunity-bottom p, .achievement-points, .inclusion-list, .schools-feature-grid, .parent-features, .privacy-note, .journey-step p, .dashboard-welcome span, .dashboard-stats small, .activity-heading span, .phone-greeting span, .phone-moment small, .phone-progress, .phone-parent-note, .quest-card small) {
+  color: var(--vq-muted);
+}
+
+.dark :is(.brand > span:last-child > span, .hero-copy h1 span, .hero-kicker, .eyebrow, .underlined-link, .opportunity-link, .zone-content a, .chat-prompt, .canvas-footer button) {
+  color: var(--vq-link);
+}
+
+.dark :is(.ai-message p, .student-message p) {
+  border-color: var(--vq-border);
+  background: var(--vq-raised);
+  color: var(--vq-ink);
+}
+
+.dark .ai-kicker { color: var(--vq-link); }
+.dark .circuit-stage { background: #17283e; }
+.dark .hero-art::before {
+  background: radial-gradient(ellipse at 74% 21%, #554b3a 0 2%, transparent 30%), linear-gradient(162deg, #243a53, #182c42 54%, #1a3d42);
+}
+
+.dark .student-portal {
+  --student-card-surface: var(--vq-surface);
+  --student-card-line: var(--vq-border);
+  --student-card-shadow: var(--vq-shadow);
+  --portal-ink: var(--vq-ink);
+  --portal-muted: var(--vq-muted);
+  --portal-line: var(--vq-border);
+  background: var(--vq-page);
+}
+
+.dark .student-portal :is(.student-topbar, .rail-level, .student-chart-card select, .student-segment, .student-bar-track, .student-workspace-icon, .view-loading-line, .view-loading-grid i) {
+  border-color: var(--vq-border);
+  background: var(--vq-raised);
+  color: var(--vq-ink);
+}
+
+.dark .student-portal :is(.student-rail, .top-search, .student-notification, .student-user-chip, .student-menu-toggle, .notification-popover, .student-segment button[aria-pressed="true"]) {
+  border-color: var(--vq-border);
+  background: var(--vq-surface);
+  color: var(--vq-ink);
+}
+
+.dark .student-portal .student-dashboard .student-chart-card {
+  background: var(--vq-surface);
+}
+
+.dark .student-portal :is(.student-metric-copy > strong, .topbar-title h1, .top-search input, .student-card-heading h2, .student-panel-heading h2, .chart-total strong, .student-course-info > b, .student-task-row:not(.is-done) b, .radar-opportunity > b, .rail-person > b, .calendar-month > b, .rail-task:not(.done) b) {
+  color: var(--vq-ink);
+}
+
+.dark .student-portal .student-content .student-feature-card :is(h2, h3) {
+  color: var(--vq-ink);
+}
+
+.dark .student-portal .student-content .student-feature-card {
+  color: var(--vq-ink);
+}
+
+.dark .student-portal :is(.student-breadcrumb, .topbar-title p, .student-kicker, .student-metric-copy > span, .student-metric-copy > small, .chart-total span, .student-bar-column > span, .chart-legend, .student-course-info > small, .student-course-end > small, .student-segment button, .student-task-row small, .radar-opportunity > small, .student-empty, .rail-section-heading, .rail-section-heading button, .rail-level > div, .rail-level > small, .rail-person > small, .calendar-days button, .calendar-selected, .rail-task small) {
+  color: var(--vq-muted);
+}
+
+.dark .student-portal :is(.student-view-all, .rail-level > div b, .student-course-end > b, .student-segment button[aria-pressed="true"]) {
+  color: var(--vq-link);
+}
+
+.dark .student-portal :is(.student-course-row, .student-view-all, .radar-opportunity, .rail-profile, .rail-calendar, .rail-tasklist) {
+  border-color: var(--vq-border);
+}
+
+.dark .student-portal :is(.student-course-row, .notification-popover button):hover {
+  background: var(--vq-raised);
+}
+
+.dark .student-portal .student-bars {
+  background: repeating-linear-gradient(to bottom, transparent 0 25px, var(--vq-border) 26px 27px);
+}
+
+.dark .student-portal .rail-streak { background: var(--vq-tone-amber); }
+.dark .student-portal .rail-streak :is(b, p, .streak-count) { color: var(--vq-accent-amber); }
+.dark .student-portal .calendar-days button[aria-pressed="true"] {
+  background: var(--vq-tone-blue);
+  color: var(--vq-accent-blue);
+}
+
+.dark .student-portal .student-course-progress { background: var(--vq-border); }

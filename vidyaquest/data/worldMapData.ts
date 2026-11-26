@@ -1,0 +1,307 @@
+import {
+  LevelNode,
+  LevelStatus,
+  PlayerMapProgress,
+  RegionInfo,
+  SubjectMapResponse,
+  SubjectSummary,
+} from '@/types/worldMap';
+
+export const WORLD_REGIONS: RegionInfo[] = [
+  {
+    id: 'knowledge-village',
+    name: 'Knowledge Village',
+    subtitle: 'Starting Meadows & Farms',
+    xPercent: 54,
+    yPercent: 56,
+    accentColor: '#eab308',
+  },
+  {
+    id: 'science-forest',
+    name: 'Science Forest',
+    subtitle: 'Hidden Woodland Lab',
+    xPercent: 26,
+    yPercent: 25,
+    accentColor: '#22c55e',
+  },
+  {
+    id: 'mathematics-mountains',
+    name: 'Mathematics Mountains',
+    subtitle: 'Snowy Peaks & Caves',
+    xPercent: 55,
+    yPercent: 18,
+    accentColor: '#38bdf8',
+  },
+  {
+    id: 'discovery-coast',
+    name: 'Discovery Coast',
+    subtitle: 'Beaches, Bridges & Isles',
+    xPercent: 28,
+    yPercent: 74,
+    accentColor: '#f59e0b',
+  },
+  {
+    id: 'innovation-castle',
+    name: 'Innovation Castle',
+    subtitle: 'Grand Citadel Finale',
+    xPercent: 84,
+    yPercent: 54,
+    accentColor: '#a855f7',
+  },
+];
+
+export const WORLD_LEVELS: LevelNode[] = [
+  {
+    id: 'kv-1',
+    levelNumber: 1,
+    title: 'Village Welcome',
+    regionId: 'knowledge-village',
+    regionName: 'Knowledge Village',
+    description: 'Begin your VidyaQuest journey at the village square and learn how observation sparks discovery.',
+    objectives: ['Explore the scientific method basics', 'Identify everyday patterns in nature'],
+    difficulty: 'Beginner',
+    xpReward: 50,
+    xPercent: 55,
+    yPercent: 60,
+    prerequisites: [],
+  },
+  {
+    id: 'kv-2',
+    levelNumber: 2,
+    title: 'Harvest Ratios',
+    regionId: 'knowledge-village',
+    regionName: 'Knowledge Village',
+    description: 'Help the village farmers measure crop rows, water buckets, and seed proportions.',
+    objectives: ['Compare quantities using simple ratios', 'Balance farm resources accurately'],
+    difficulty: 'Beginner',
+    xpReward: 75,
+    xPercent: 45,
+    yPercent: 57,
+    prerequisites: ['kv-1'],
+  },
+];
+
+export const INITIAL_PLAYER_PROGRESS: PlayerMapProgress = {
+  completedLevels: {},
+  currentLevelId: 'kv-1',
+  totalXp: 0,
+};
+
+export function getLevelStatus(level: LevelNode, progress: PlayerMapProgress): LevelStatus {
+  if (progress.completedLevels[level.id]) return 'completed';
+  if (progress.currentLevelId === level.id) return 'current';
+  const prereqsMet = level.prerequisites.every((prereqId) =>
+    Boolean(progress.completedLevels[prereqId]),
+  );
+  return prereqsMet ? 'unlocked' : 'locked';
+}
+
+export const SIMULATOR_SUBJECTS: SubjectSummary[] = [
+  {
+    id: 'chemistry',
+    name: 'Chemistry',
+    slug: 'chemistry',
+    description: 'Master elements, reactions, acids, bases, and solutions inside Alchemy Castle.',
+    icon: 'flask-conical',
+    totalMissions: 5,
+    completedMissions: 0,
+    completionPercentage: 0,
+    map: {
+      id: 'alchemy-castle',
+      mapName: 'Alchemy Castle',
+      mapSlug: 'alchemy-castle',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      version: 1,
+    },
+  },
+  {
+    id: 'physics',
+    name: 'Physics',
+    slug: 'physics',
+    description: 'Explore mechanics, electricity, magnetism, optics, and energy in Atom Kingdom.',
+    icon: 'atom',
+    totalMissions: 5,
+    completedMissions: 0,
+    completionPercentage: 0,
+    map: {
+      id: 'atom-kingdom',
+      mapName: 'Atom Kingdom',
+      mapSlug: 'atom-kingdom',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      version: 1,
+    },
+  },
+  {
+    id: 'biology',
+    name: 'Biology',
+    slug: 'biology',
+    description: 'Journey through Cell City, DNA Valley, and living ecosystems in Life Forest.',
+    icon: 'leaf',
+    totalMissions: 5,
+    completedMissions: 0,
+    completionPercentage: 0,
+    map: {
+      id: 'life-forest',
+      mapName: 'Life Forest',
+      mapSlug: 'life-forest',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      version: 1,
+    },
+  },
+  {
+    id: 'mathematics',
+    name: 'Mathematics',
+    slug: 'mathematics',
+    description: 'Conquer Algebra City, Geometry Valley, and Number Mountains in Number Kingdom.',
+    icon: 'sigma',
+    totalMissions: 5,
+    completedMissions: 0,
+    completionPercentage: 0,
+    map: {
+      id: 'number-kingdom',
+      mapName: 'Number Kingdom',
+      mapSlug: 'number-kingdom',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      version: 1,
+    },
+  },
+];
+
+export const SIMULATOR_MAPS_BY_SUBJECT: Record<string, SubjectMapResponse> = {
+  chemistry: {
+    subject: { id: 'chemistry', name: 'Chemistry', slug: 'chemistry', icon: 'flask-conical' },
+    map: {
+      id: 'alchemy-castle',
+      mapName: 'Alchemy Castle',
+      mapSlug: 'alchemy-castle',
+      theme: {
+        primaryColor: '#a855f7',
+        secondaryColor: '#f59e0b',
+        oceanColor: '#1e293b',
+        badgeStyle: 'alchemy-purple',
+        ambientEffect: 'sparkles',
+      },
+      backgroundAsset: '/assets/vidyaquest-world-map.jpg',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      mapConfiguration: { width: 1600, height: 960, minScale: 0.7, maxScale: 2.5, defaultCenterX: 50, defaultCenterY: 50 },
+      version: 1,
+    },
+    zones: [
+      { id: 'chem-z1', name: 'Elements Courtyard', slug: 'elements-courtyard', locationType: 'zone', positionX: 54, positionY: 56, accentColor: '#eab308', displayOrder: 1, description: 'Atoms, symbols, and pure substances.', status: 'UNLOCKED', totalMissions: 2, completedMissions: 0, completionPercentage: 0 },
+      { id: 'chem-z2', name: 'Periodic Hall', slug: 'periodic-hall', locationType: 'zone', positionX: 26, positionY: 25, accentColor: '#22c55e', displayOrder: 2, description: 'Groups, periods, and element families.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'chem-z3', name: 'Reaction Forge', slug: 'reaction-forge', locationType: 'zone', positionX: 55, positionY: 18, accentColor: '#38bdf8', displayOrder: 3, description: 'Chemical equations and reaction types.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'chem-z4', name: 'Acids & Bases Lab', slug: 'acids-bases-lab', locationType: 'zone', positionX: 28, positionY: 74, accentColor: '#f59e0b', displayOrder: 4, description: 'pH scales and neutralization.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'chem-z5', name: 'Solutions Spire', slug: 'solutions-spire', locationType: 'zone', positionX: 84, positionY: 54, accentColor: '#a855f7', displayOrder: 5, description: 'Concentration and solubility.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+    ],
+    missions: [
+      { id: 'chem-1', slug: 'chem-1', title: 'Properties of Acids & Bases', description: 'Test litmus, phenolphthalein, and pH strips on acids and bases in 3D.', locationId: 'chem-z1', locationName: 'Elements Courtyard', missionType: 'Virtual experiment', difficulty: 'Beginner', xpReward: 50, prerequisites: [], sequence: 1, estimatedDurationMinutes: 12, learningObjectives: ['Test litmus and pH indicators on acids and bases', 'Classify solutions by pH value'], positionX: 55, positionY: 60, status: 'AVAILABLE', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'chem-2', slug: 'chem-2', title: 'Acid-Base Titration Lab', description: 'Perform a controlled burette titration and detect the neutralization endpoint.', locationId: 'chem-z1', locationName: 'Elements Courtyard', missionType: 'Virtual experiment', difficulty: 'Beginner', xpReward: 75, prerequisites: ['chem-1'], sequence: 2, estimatedDurationMinutes: 15, learningObjectives: ['Perform controlled burette titration', 'Detect the neutralization endpoint using indicators'], positionX: 45, positionY: 57, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'chem-3', slug: 'chem-3', title: 'Periodic Patterns', description: 'Group metals, non-metals, and noble gases inside Periodic Hall.', locationId: 'chem-z2', locationName: 'Periodic Hall', missionType: 'Puzzle', difficulty: 'Intermediate', xpReward: 100, prerequisites: ['chem-2'], sequence: 3, estimatedDurationMinutes: 12, learningObjectives: ['Predict properties from periodic groups'], positionX: 27, positionY: 27, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'chem-4', slug: 'chem-4', title: 'Balancing Equations', description: 'Apply conservation of mass at the Reaction Forge.', locationId: 'chem-z3', locationName: 'Reaction Forge', missionType: 'Challenge', difficulty: 'Intermediate', xpReward: 130, prerequisites: ['chem-3'], sequence: 4, estimatedDurationMinutes: 15, learningObjectives: ['Balance chemical equations accurately'], positionX: 55, positionY: 36, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'chem-5', slug: 'chem-5', title: 'Grand Elixir Trial', description: 'Synthesize acids, bases, and solutions in the Solutions Spire.', locationId: 'chem-z5', locationName: 'Solutions Spire', missionType: 'Project', difficulty: 'Master', xpReward: 250, prerequisites: ['chem-4'], sequence: 5, estimatedDurationMinutes: 18, learningObjectives: ['Calculate concentration and neutralize solutions'], positionX: 84, positionY: 60, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+    ],
+    progress: { totalMissions: 5, completedMissions: 0, completionPercentage: 0, currentMissionId: 'chem-1', totalXp: 0, level: 1 },
+  },
+  physics: {
+    subject: { id: 'physics', name: 'Physics', slug: 'physics', icon: 'atom' },
+    map: {
+      id: 'atom-kingdom',
+      mapName: 'Atom Kingdom',
+      mapSlug: 'atom-kingdom',
+      theme: {
+        primaryColor: '#38bdf8',
+        secondaryColor: '#22c55e',
+        oceanColor: '#1b5e7a',
+        badgeStyle: 'physics-cyan',
+        ambientEffect: 'clouds',
+      },
+      backgroundAsset: '/assets/vidyaquest-world-map.jpg',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      mapConfiguration: { width: 1600, height: 960, minScale: 0.7, maxScale: 2.5, defaultCenterX: 50, defaultCenterY: 50 },
+      version: 1,
+    },
+    zones: [
+      { id: 'phys-z1', name: 'Mechanics Plains', slug: 'mechanics-plains', locationType: 'zone', positionX: 54, positionY: 56, accentColor: '#eab308', displayOrder: 1, description: 'Motion, forces, and Newton’s laws.', status: 'UNLOCKED', totalMissions: 2, completedMissions: 0, completionPercentage: 0 },
+      { id: 'phys-z2', name: 'Optics Observatory', slug: 'optics-observatory', locationType: 'zone', positionX: 26, positionY: 25, accentColor: '#22c55e', displayOrder: 2, description: 'Reflection, refraction, and lenses.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'phys-z3', name: 'Magnetism Peaks', slug: 'magnetism-peaks', locationType: 'zone', positionX: 55, positionY: 18, accentColor: '#38bdf8', displayOrder: 3, description: 'Magnetic fields and electromagnetism.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'phys-z4', name: 'Electricity Bay', slug: 'electricity-coast', locationType: 'zone', positionX: 28, positionY: 74, accentColor: '#f59e0b', displayOrder: 4, description: 'Current, voltage, and circuits.', status: 'LOCKED', totalMissions: 0, completedMissions: 0, completionPercentage: 0 },
+      { id: 'phys-z5', name: 'Energy Citadel', slug: 'energy-citadel', locationType: 'zone', positionX: 84, positionY: 54, accentColor: '#a855f7', displayOrder: 5, description: 'Work, power, and energy conservation.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+    ],
+    missions: [
+      { id: 'phys-1', slug: 'phys-1', title: 'Motion & Speed', description: 'Measure distance, time, and velocity across Mechanics Plains.', locationId: 'phys-z1', locationName: 'Mechanics Plains', missionType: 'Interactive lesson', difficulty: 'Beginner', xpReward: 50, prerequisites: [], sequence: 1, estimatedDurationMinutes: 8, learningObjectives: ['Calculate speed from distance and time'], positionX: 55, positionY: 60, status: 'AVAILABLE', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'phys-2', slug: 'phys-2', title: 'Balanced Forces', description: 'Experiment with net force and friction.', locationId: 'phys-z1', locationName: 'Mechanics Plains', missionType: 'Virtual experiment', difficulty: 'Beginner', xpReward: 75, prerequisites: ['phys-1'], sequence: 2, estimatedDurationMinutes: 10, learningObjectives: ['Predict net force on moving objects'], positionX: 45, positionY: 57, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'phys-3', slug: 'phys-3', title: 'Mirror Maze', description: 'Guide light rays using plane mirrors in Optics Observatory.', locationId: 'phys-z2', locationName: 'Optics Observatory', missionType: 'Virtual experiment', difficulty: 'Intermediate', xpReward: 110, prerequisites: ['phys-2'], sequence: 3, estimatedDurationMinutes: 12, learningObjectives: ['Verify angle of incidence equals angle of reflection'], positionX: 27, positionY: 27, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'phys-4', slug: 'phys-4', title: 'Magnetic Fields', description: 'Map magnetic field lines across Magnetism Peaks.', locationId: 'phys-z3', locationName: 'Magnetism Peaks', missionType: 'Puzzle', difficulty: 'Intermediate', xpReward: 140, prerequisites: ['phys-3'], sequence: 4, estimatedDurationMinutes: 14, learningObjectives: ['Map field lines around bar magnets'], positionX: 55, positionY: 36, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'phys-5', slug: 'phys-5', title: 'Atom King’s Trial', description: 'Master conservation of energy inside Energy Citadel.', locationId: 'phys-z5', locationName: 'Energy Citadel', missionType: 'Challenge', difficulty: 'Master', xpReward: 260, prerequisites: ['phys-4'], sequence: 5, estimatedDurationMinutes: 18, learningObjectives: ['Solve conservation of energy challenges'], positionX: 84, positionY: 60, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+    ],
+    progress: { totalMissions: 5, completedMissions: 0, completionPercentage: 0, currentMissionId: 'phys-1', totalXp: 0, level: 1 },
+  },
+  biology: {
+    subject: { id: 'biology', name: 'Biology', slug: 'biology', icon: 'leaf' },
+    map: {
+      id: 'life-forest',
+      mapName: 'Life Forest',
+      mapSlug: 'life-forest',
+      theme: {
+        primaryColor: '#22c55e',
+        secondaryColor: '#eab308',
+        oceanColor: '#134e4a',
+        badgeStyle: 'bio-emerald',
+        ambientEffect: 'leaves',
+      },
+      backgroundAsset: '/assets/vidyaquest-world-map.jpg',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      mapConfiguration: { width: 1600, height: 960, minScale: 0.7, maxScale: 2.5, defaultCenterX: 50, defaultCenterY: 50 },
+      version: 1,
+    },
+    zones: [
+      { id: 'bio-z1', name: 'Plant Life Grove', slug: 'plant-life', locationType: 'zone', positionX: 54, positionY: 56, accentColor: '#22c55e', displayOrder: 1, description: 'Photosynthesis and plant anatomy.', status: 'UNLOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'bio-z2', name: 'Cell City', slug: 'cell-city', locationType: 'zone', positionX: 26, positionY: 25, accentColor: '#10b981', displayOrder: 2, description: 'Organelles and cellular transport.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'bio-z3', name: 'DNA Valley', slug: 'dna-valley', locationType: 'zone', positionX: 55, positionY: 18, accentColor: '#38bdf8', displayOrder: 3, description: 'Genetics and heredity.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'bio-z4', name: 'Ecosystem Coast', slug: 'ecosystems', locationType: 'zone', positionX: 28, positionY: 74, accentColor: '#f59e0b', displayOrder: 4, description: 'Food webs and biodiversity.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'bio-z5', name: 'Human Body Kingdom', slug: 'human-body', locationType: 'zone', positionX: 84, positionY: 54, accentColor: '#ef4444', displayOrder: 5, description: 'Organ systems and homeostasis.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+    ],
+    missions: [
+      { id: 'bio-1', slug: 'bio-1', title: 'Leaf Peel Stomata Lab', description: 'Prepare a stained leaf peel mount and inspect guard cells under a 3D microscope.', locationId: 'bio-z1', locationName: 'Plant Life Grove', missionType: 'Virtual experiment', difficulty: 'Beginner', xpReward: 50, prerequisites: [], sequence: 1, estimatedDurationMinutes: 10, learningObjectives: ['Prepare a temporary stained leaf peel mount', 'Inspect guard cells and stomatal pores under 3D microscopy'], positionX: 55, positionY: 60, status: 'AVAILABLE', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'bio-2', slug: 'bio-2', title: 'Human Heart 3D Model', description: 'Explore the chambers, valves, and blood flow of the 3D human heart.', locationId: 'bio-z2', locationName: 'Cell City', missionType: 'Virtual experiment', difficulty: 'Beginner', xpReward: 75, prerequisites: ['bio-1'], sequence: 2, estimatedDurationMinutes: 12, learningObjectives: ['Identify the four chambers and major vessels of the heart', 'Trace oxygenated and deoxygenated blood flow'], positionX: 27, positionY: 27, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'bio-3', slug: 'bio-3', title: 'Double Helix Code', description: 'Pair complementary DNA bases in DNA Valley.', locationId: 'bio-z3', locationName: 'DNA Valley', missionType: 'Puzzle', difficulty: 'Intermediate', xpReward: 120, prerequisites: ['bio-2'], sequence: 3, estimatedDurationMinutes: 12, learningObjectives: ['Pair complementary DNA base pairs'], positionX: 55, positionY: 36, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'bio-4', slug: 'bio-4', title: 'Tidepool Food Web', description: 'Balance producers and consumers on Ecosystem Coast.', locationId: 'bio-z4', locationName: 'Ecosystem Coast', missionType: 'Virtual experiment', difficulty: 'Intermediate', xpReward: 140, prerequisites: ['bio-1'], sequence: 4, estimatedDurationMinutes: 14, learningObjectives: ['Balance producer and consumer populations'], positionX: 34, positionY: 68, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'bio-5', slug: 'bio-5', title: 'Circulatory Quest', description: 'Trace oxygen flow through the heart and lungs.', locationId: 'bio-z5', locationName: 'Human Body Kingdom', missionType: 'Challenge', difficulty: 'Advanced', xpReward: 200, prerequisites: ['bio-3'], sequence: 5, estimatedDurationMinutes: 16, learningObjectives: ['Trace oxygen flow through heart and lungs'], positionX: 84, positionY: 60, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+    ],
+    progress: { totalMissions: 5, completedMissions: 0, completionPercentage: 0, currentMissionId: 'bio-1', totalXp: 0, level: 1 },
+  },
+  mathematics: {
+    subject: { id: 'mathematics', name: 'Mathematics', slug: 'mathematics', icon: 'sigma' },
+    map: {
+      id: 'number-kingdom',
+      mapName: 'Number Kingdom',
+      mapSlug: 'number-kingdom',
+      theme: {
+        primaryColor: '#f59e0b',
+        secondaryColor: '#38bdf8',
+        oceanColor: '#1e3a8a',
+        badgeStyle: 'math-gold',
+        ambientEffect: 'clouds',
+      },
+      backgroundAsset: '/assets/vidyaquest-world-map.jpg',
+      previewAsset: '/assets/vidyaquest-world-map.jpg',
+      mapConfiguration: { width: 1600, height: 960, minScale: 0.7, maxScale: 2.5, defaultCenterX: 50, defaultCenterY: 50 },
+      version: 1,
+    },
+    zones: [
+      { id: 'math-z1', name: 'Puzzle Village', slug: 'puzzle-village', locationType: 'zone', positionX: 54, positionY: 56, accentColor: '#eab308', displayOrder: 1, description: 'Arithmetic, ratios, and logic puzzles.', status: 'UNLOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'math-z2', name: 'Algebra City', slug: 'algebra-city', locationType: 'zone', positionX: 26, positionY: 25, accentColor: '#22c55e', displayOrder: 2, description: 'Expressions, equations, and functions.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'math-z3', name: 'Number Mountains', slug: 'number-mountains', locationType: 'zone', positionX: 55, positionY: 18, accentColor: '#38bdf8', displayOrder: 3, description: 'Primes, exponents, and sequences.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'math-z4', name: 'Geometry Valley', slug: 'geometry-valley', locationType: 'zone', positionX: 28, positionY: 74, accentColor: '#f59e0b', displayOrder: 4, description: 'Triangles, circles, and coordinates.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+      { id: 'math-z5', name: 'Theorem Keep', slug: 'theorem-keep', locationType: 'zone', positionX: 84, positionY: 54, accentColor: '#a855f7', displayOrder: 5, description: 'Grand mathematical proofs.', status: 'LOCKED', totalMissions: 1, completedMissions: 0, completionPercentage: 0 },
+    ],
+    missions: [
+      { id: 'math-1', slug: 'math-1', title: 'Ratio Bakery', description: 'Solve proportional reasoning puzzles in Puzzle Village.', locationId: 'math-z1', locationName: 'Puzzle Village', missionType: 'Puzzle', difficulty: 'Beginner', xpReward: 50, prerequisites: [], sequence: 1, estimatedDurationMinutes: 8, learningObjectives: ['Solve proportional reasoning problems'], positionX: 55, positionY: 60, status: 'AVAILABLE', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'math-2', slug: 'math-2', title: 'Linear Balance', description: 'Solve two-step linear equations in Algebra City.', locationId: 'math-z2', locationName: 'Algebra City', missionType: 'Interactive lesson', difficulty: 'Intermediate', xpReward: 90, prerequisites: ['math-1'], sequence: 2, estimatedDurationMinutes: 10, learningObjectives: ['Solve two-step linear equations'], positionX: 27, positionY: 27, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'math-3', slug: 'math-3', title: 'Prime Summit', description: 'Factor numbers into primes and exponents.', locationId: 'math-z3', locationName: 'Number Mountains', missionType: 'Challenge', difficulty: 'Intermediate', xpReward: 130, prerequisites: ['math-2'], sequence: 3, estimatedDurationMinutes: 12, learningObjectives: ['Factor numbers into primes and exponents'], positionX: 55, positionY: 36, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'math-4', slug: 'math-4', title: 'Bridge Trigonometry', description: 'Apply the Pythagorean theorem in Geometry Valley.', locationId: 'math-z4', locationName: 'Geometry Valley', missionType: 'Quiz', difficulty: 'Advanced', xpReward: 160, prerequisites: ['math-1'], sequence: 4, estimatedDurationMinutes: 14, learningObjectives: ['Apply Pythagorean theorem to right triangles'], positionX: 34, positionY: 68, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+      { id: 'math-5', slug: 'math-5', title: 'Crown of Numbers', description: 'Combine algebra and geometry inside Theorem Keep.', locationId: 'math-z5', locationName: 'Theorem Keep', missionType: 'Challenge', difficulty: 'Master', xpReward: 250, prerequisites: ['math-3'], sequence: 5, estimatedDurationMinutes: 18, learningObjectives: ['Combine algebra and geometry in a timed trial'], positionX: 84, positionY: 60, status: 'LOCKED', attempts: 0, bestScore: 0, stars: 0 },
+    ],
+    progress: { totalMissions: 5, completedMissions: 0, completionPercentage: 0, currentMissionId: 'math-1', totalXp: 0, level: 1 },
+  },
+};

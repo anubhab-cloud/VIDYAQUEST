@@ -88,7 +88,7 @@ export function ModernAreaChart({
                 y1={y}
                 x2={w - padR}
                 y2={y}
-                stroke="#e2e8f0"
+                stroke="var(--vq-border)"
                 strokeDasharray="4 4"
                 strokeWidth="1"
               />
@@ -96,7 +96,7 @@ export function ModernAreaChart({
                 x={padL - 8}
                 y={y + 3}
                 textAnchor="end"
-                className="fill-slate-400 text-[10px]"
+                className="fill-[color:var(--vq-subtle)] text-[10px]"
               >
                 {labelVal}
               </text>
@@ -166,7 +166,7 @@ export function ModernAreaChart({
                 x={x}
                 y={h - 6}
                 textAnchor="middle"
-                className="fill-slate-500 text-[10px] font-medium"
+                className="fill-[color:var(--vq-muted)] text-[10px] font-medium"
               >
                 {lbl}
               </text>
@@ -186,16 +186,16 @@ export function ModernAreaChart({
 
       {/* Floating Tooltip */}
       {hoverIdx !== null && (
-        <div className="pointer-events-none absolute right-3 top-2 rounded-xl border border-slate-200/80 bg-white/95 px-3 py-2 text-[11px] shadow-lg backdrop-blur">
-          <p className="font-bold text-[#172d4a]">{labels[hoverIdx]}</p>
+        <div className="pointer-events-none absolute right-3 top-2 rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)]/95 px-3 py-2 text-[11px] shadow-lg backdrop-blur">
+          <p className="font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">{labels[hoverIdx]}</p>
           {series.map((s) => (
             <div key={s.name} className="mt-1 flex items-center gap-2">
               <span
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: s.color }}
               />
-              <span className="text-slate-500">{s.name}:</span>
-              <strong className="text-[#172d4a]">
+              <span className="text-[color:var(--vq-muted)]">{s.name}:</span>
+              <strong className="text-[color:light-dark(#172d4a,var(--vq-ink))]">
                 {s.data[hoverIdx]}
                 {unit}
               </strong>
@@ -269,10 +269,10 @@ export function ModernDonutChart({
           })}
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[color:var(--vq-subtle)]">
             {hovered !== null ? slices[hovered].label : centerLabel}
           </span>
-          <strong className="mt-0.5 text-xl font-extrabold text-[#172d4a]">
+          <strong className="mt-0.5 text-xl font-extrabold text-[color:light-dark(#172d4a,var(--vq-ink))]">
             {hovered !== null
               ? `${Math.round((slices[hovered].value / total) * 100)}%`
               : centerValue}
@@ -287,7 +287,7 @@ export function ModernDonutChart({
             onMouseEnter={() => setHovered(idx)}
             onMouseLeave={() => setHovered(null)}
             className={`flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-1.5 text-xs transition ${
-              hovered === idx ? "bg-slate-100" : ""
+              hovered === idx ? "bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))]" : ""
             }`}
           >
             <div className="flex items-center gap-2">
@@ -295,9 +295,9 @@ export function ModernDonutChart({
                 className="h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: s.color }}
               />
-              <span className="font-medium text-slate-600">{s.label}</span>
+              <span className="font-medium text-[color:var(--vq-muted)]">{s.label}</span>
             </div>
-            <strong className="text-[#172d4a]">
+            <strong className="text-[color:light-dark(#172d4a,var(--vq-ink))]">
               {Math.round((s.value / total) * 100)}%
             </strong>
           </div>
@@ -359,7 +359,7 @@ export function ModernRadarChart({
             key={ring}
             points={pts}
             fill="none"
-            stroke="#e2e8f0"
+            stroke="var(--vq-border)"
             strokeWidth="1"
           />
         )
@@ -376,14 +376,14 @@ export function ModernRadarChart({
               y1={cy}
               x2={edge.x}
               y2={edge.y}
-              stroke="#e2e8f0"
+              stroke="var(--vq-border)"
               strokeWidth="1"
             />
             <text
               x={lbl.x}
               y={lbl.y + 3}
               textAnchor="middle"
-              className="fill-slate-600 text-[9px] font-semibold"
+              className="fill-[color:var(--vq-muted)] text-[9px] font-semibold"
             >
               {p.subject}
             </text>

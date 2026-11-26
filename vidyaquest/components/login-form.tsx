@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { useRouter } from "next/navigation"
 import type { UserRole } from "@/lib/auth"
 
@@ -193,30 +194,33 @@ export function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f9fc] text-[#172d4a] flex flex-col">
-      <header className="w-full border-b border-[#e8edf3] bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[color:light-dark(#f7f9fc,var(--vq-page))] text-[color:light-dark(#172d4a,var(--vq-ink))] flex flex-col">
+      <header className="w-full border-b border-[color:light-dark(#e8edf3,var(--vq-border))] bg-[color:var(--vq-surface)]/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-[#172d4a]"
+            className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]"
           >
             <BrandLogo className="size-8" />
             <span>
-              vidya<span className="text-[#2563eb]">quest</span>
+              vidya<span className="text-[color:light-dark(#2563eb,var(--vq-link))]">quest</span>
             </span>
           </Link>
 
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-lg border border-[#e2e8f0] bg-white px-3.5 py-2 text-xs font-semibold text-[#44546a] transition hover:border-[#cbd5e1] hover:text-[#172d4a]"
-          >
-            ← Back to home
-          </Link>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-lg border border-[color:light-dark(#e2e8f0,var(--vq-border))] bg-[color:var(--vq-surface)] px-3.5 py-2 text-xs font-semibold text-[color:light-dark(#44546a,var(--vq-muted))] transition hover:border-[color:light-dark(#cbd5e1,var(--vq-border))] hover:text-[color:light-dark(#172d4a,var(--vq-ink))]"
+            >
+              ← Back to home
+            </Link>
+          </div>
         </div>
       </header>
 
       <main className="mx-auto flex w-full max-w-5xl flex-1 items-center justify-center px-4 py-10 sm:px-6">
-        <div className="grid w-full overflow-hidden rounded-2xl border border-[#e5ebf2] bg-white shadow-[0_20px_50px_rgba(23,45,74,0.08)] lg:grid-cols-[1.02fr_1fr]">
+        <div className="grid w-full overflow-hidden rounded-2xl border border-[color:light-dark(#e5ebf2,var(--vq-border))] bg-[color:var(--vq-surface)] shadow-[0_20px_50px_rgba(23,45,74,0.08)] lg:grid-cols-[1.02fr_1fr]">
           {/* Left Role Authorization Overview */}
           <section className="relative flex flex-col justify-between bg-[#172d4a] p-8 text-white sm:p-10">
             <div>
@@ -252,7 +256,7 @@ export function LoginForm() {
               </div>
             </div>
 
-            <div className="mt-8 border-t border-white/10 pt-5 text-xs text-[#94a3b8]">
+            <div className="mt-8 border-t border-white/10 pt-5 text-xs text-[color:light-dark(#94a3b8,var(--vq-subtle))]">
               Protected with signed HTTP-only session cookies and strict
               role-level route guards.
             </div>
@@ -261,23 +265,23 @@ export function LoginForm() {
           {/* Right Login Form */}
           <section className="p-8 sm:p-10">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-[#172d4a]">
+              <h2 className="text-2xl font-bold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]">
                 Sign in to VidyaQuest
               </h2>
-              <p className="mt-1.5 text-xs text-[#64748b]">
+              <p className="mt-1.5 text-xs text-[color:light-dark(#64748b,var(--vq-muted))]">
                 Select your role and enter your credentials to continue.
               </p>
             </div>
 
             {/* Role Selector */}
             <div className="mt-6">
-              <span className="block text-[11px] font-bold uppercase tracking-wider text-[#64748b]">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-[color:light-dark(#64748b,var(--vq-muted))]">
                 Choose your role
               </span>
               <div
                 role="tablist"
                 aria-label="Account role"
-                className="mt-2 grid grid-cols-3 gap-2 rounded-xl bg-[#f1f5f9] p-1.5"
+                className="mt-2 grid grid-cols-3 gap-2 rounded-xl bg-[color:light-dark(#f1f5f9,var(--vq-raised))] p-1.5"
               >
                 {ROLE_ORDER.map((roleKey) => {
                   const role = ROLES[roleKey]
@@ -291,8 +295,8 @@ export function LoginForm() {
                       onClick={() => handleRoleChange(roleKey)}
                       className={`flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-xs font-semibold transition cursor-pointer ${
                         isActive
-                          ? "bg-white text-[#172d4a] shadow-sm ring-1 ring-[#e2e8f0]"
-                          : "text-[#64748b] hover:text-[#172d4a]"
+                          ? "bg-[color:var(--vq-surface)] text-[color:light-dark(#172d4a,var(--vq-ink))] shadow-sm ring-1 ring-[color:light-dark(#e2e8f0,var(--vq-border))]"
+                          : "text-[color:light-dark(#64748b,var(--vq-muted))] hover:text-[color:light-dark(#172d4a,var(--vq-ink))]"
                       }`}
                     >
                       <RoleIcon role={roleKey} />
@@ -307,7 +311,7 @@ export function LoginForm() {
               <div>
                 <label
                   htmlFor="login-email"
-                  className="block text-xs font-semibold text-[#334155]"
+                  className="block text-xs font-semibold text-[color:light-dark(#334155,var(--vq-ink))]"
                 >
                   Email address
                 </label>
@@ -320,7 +324,7 @@ export function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={activeRole.demoEmail}
-                  className="mt-1.5 w-full rounded-lg border border-[#dbe3ee] bg-white px-3.5 py-2.5 text-sm text-[#172d4a] placeholder:text-[#94a3b8] focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20"
+                  className="mt-1.5 w-full rounded-lg border border-[color:light-dark(#dbe3ee,var(--vq-border))] bg-[color:var(--vq-surface)] px-3.5 py-2.5 text-sm text-[color:light-dark(#172d4a,var(--vq-ink))] placeholder:text-[color:light-dark(#94a3b8,var(--vq-subtle))] focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20"
                 />
               </div>
 
@@ -328,14 +332,14 @@ export function LoginForm() {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="login-password"
-                    className="block text-xs font-semibold text-[#334155]"
+                    className="block text-xs font-semibold text-[color:light-dark(#334155,var(--vq-ink))]"
                   >
                     Password
                   </label>
                   <button
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="text-[11px] font-semibold text-[#2563eb] hover:underline cursor-pointer"
+                    className="text-[11px] font-semibold text-[color:light-dark(#2563eb,var(--vq-link))] hover:underline cursor-pointer"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -349,14 +353,14 @@ export function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="mt-1.5 w-full rounded-lg border border-[#dbe3ee] bg-white px-3.5 py-2.5 text-sm text-[#172d4a] placeholder:text-[#94a3b8] focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20"
+                  className="mt-1.5 w-full rounded-lg border border-[color:light-dark(#dbe3ee,var(--vq-border))] bg-[color:var(--vq-surface)] px-3.5 py-2.5 text-sm text-[color:light-dark(#172d4a,var(--vq-ink))] placeholder:text-[color:light-dark(#94a3b8,var(--vq-subtle))] focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20"
                 />
               </div>
 
               {error && (
                 <div
                   role="alert"
-                  className="rounded-lg border border-[#fecaca] bg-[#fef2f2] px-3.5 py-2.5 text-xs font-medium text-[#b91c1c]"
+                  className="rounded-lg border border-[color:light-dark(#fecaca,var(--vq-border))] bg-[color:light-dark(#fef2f2,var(--vq-tone-red))] px-3.5 py-2.5 text-xs font-medium text-[color:light-dark(#b91c1c,var(--vq-accent-red))]"
                 >
                   {error}
                 </div>
@@ -376,7 +380,7 @@ export function LoginForm() {
             </form>
 
             {/* Demo Credentials Helper */}
-            <div className="mt-6 rounded-xl border border-[#e8edf3] bg-[#f8fafc] p-4">
+            <div className="mt-6 rounded-xl border border-[color:light-dark(#e8edf3,var(--vq-border))] bg-[color:light-dark(#f8fafc,var(--vq-raised))] p-4">
               <div className="flex items-center justify-between gap-2">
                 <div>
                   <span
@@ -388,14 +392,14 @@ export function LoginForm() {
                   >
                     Demo {activeRole.label} Account
                   </span>
-                  <p className="mt-1.5 font-mono text-[11px] text-[#475569]">
+                  <p className="mt-1.5 font-mono text-[11px] text-[color:light-dark(#475569,var(--vq-muted))]">
                     {activeRole.demoEmail} · {activeRole.demoPassword}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={fillDemoCredentials}
-                  className="shrink-0 rounded-lg border border-[#d8e3f1] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#2563eb] transition hover:bg-[#eff5ff] cursor-pointer"
+                  className="shrink-0 rounded-lg border border-[color:light-dark(#d8e3f1,var(--vq-border))] bg-[color:var(--vq-surface)] px-3 py-1.5 text-[11px] font-semibold text-[color:light-dark(#2563eb,var(--vq-link))] transition hover:bg-[color:light-dark(#eff5ff,var(--vq-raised))] cursor-pointer"
                 >
                   Use demo
                 </button>

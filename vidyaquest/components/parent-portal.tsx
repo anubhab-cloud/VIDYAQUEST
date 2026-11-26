@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { useRouter } from "next/navigation"
 import type { SessionUser } from "@/lib/auth"
 import {
@@ -87,32 +88,32 @@ export function ParentPortal({ user }: { user: SessionUser }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f7fb] text-[#172d4a]">
+    <div className="min-h-screen bg-[color:light-dark(#f4f7fb,var(--vq-page))] text-[color:light-dark(#172d4a,var(--vq-ink))]">
       {/* Top Navigation */}
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
+      <header className="sticky top-0 z-30 border-b border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:var(--vq-surface)]">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
           <div className="flex items-center gap-4">
             <Link
               href="/"
               aria-label="VidyaQuest home"
-              className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-[#172d4a]"
+              className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]"
             >
               <BrandLogo className="size-8" />
               <span className="hidden min-[420px]:inline">
-                vidya<span className="text-[#16a36a]">quest</span>
+                vidya<span className="text-[color:light-dark(#16a36a,var(--vq-accent-green))]">quest</span>
               </span>
             </Link>
-            <span className="hidden rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-700 sm:inline-block">
+            <span className="hidden rounded-full bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[color:light-dark(var(--color-emerald-700),var(--vq-accent-green))] sm:inline-block">
               Parent Portal
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <select
               value={childId}
               onChange={(e) => setChildId(e.target.value)}
               aria-label="Select child"
-              className="min-h-11 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#172d4a]"
+              className="min-h-11 max-w-[125px] rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:var(--vq-surface)] px-2.5 py-1.5 text-xs font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))] sm:max-w-none"
             >
               {CHILDREN.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -121,16 +122,17 @@ export function ParentPortal({ user }: { user: SessionUser }) {
               ))}
             </select>
 
+            <ThemeToggle />
             <div className="hidden text-right md:block">
-              <p className="text-xs font-bold text-[#172d4a]">{user.name}</p>
-              <p className="text-[11px] text-slate-500">{user.email}</p>
+              <p className="text-xs font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">{user.name}</p>
+              <p className="text-[11px] text-[color:var(--vq-muted)]">{user.email}</p>
             </div>
 
             <button
               type="button"
               onClick={handleLogout}
               disabled={loggingOut}
-              className="min-h-11 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 cursor-pointer"
+              className="min-h-11 rounded-xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:var(--vq-surface)] px-3.5 py-2 text-xs font-semibold text-[color:var(--vq-ink)] transition hover:bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))] cursor-pointer"
             >
               {loggingOut ? "Signing out..." : "Sign out"}
             </button>
@@ -154,7 +156,7 @@ export function ParentPortal({ user }: { user: SessionUser }) {
               className={`min-h-11 shrink-0 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer ${
                 activeTab === tab.id
                   ? "bg-[#172d4a] text-white shadow-sm"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-[#172d4a]"
+                  : "text-[color:var(--vq-muted)] hover:bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))] hover:text-[color:light-dark(#172d4a,var(--vq-ink))]"
               }`}
             >
               {tab.label}
@@ -165,21 +167,21 @@ export function ParentPortal({ user }: { user: SessionUser }) {
 
       <main className="mx-auto max-w-7xl space-y-6 px-5 py-7 sm:px-8">
         {/* Student Context Banner */}
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-5 shadow-sm">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#16a36a]">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[color:light-dark(#16a36a,var(--vq-accent-green))]">
               Monitoring Active Student
             </p>
-            <h1 className="mt-0.5 text-2xl font-bold tracking-tight text-[#172d4a]">
+            <h1 className="mt-0.5 text-2xl font-bold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]">
               {child.name}
             </h1>
-            <p className="text-xs text-slate-500">{child.grade}</p>
+            <p className="text-xs text-[color:var(--vq-muted)]">{child.grade}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {user.permissions.map((perm) => (
               <span
                 key={perm}
-                className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-[10px] text-slate-600"
+                className="rounded-lg border border-[color:light-dark(var(--color-slate-200),var(--vq-border))] bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))] px-2.5 py-1 font-mono text-[10px] text-[color:var(--vq-muted)]"
               >
                 {perm}
               </span>
@@ -197,35 +199,35 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                   label: "Weekly Study Time",
                   value: child.weeklyHours,
                   delta: "+14% vs last week",
-                  tone: "text-emerald-600 bg-emerald-50",
+                  tone: "text-[color:light-dark(var(--color-emerald-600),var(--vq-accent-green))] bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))]",
                 },
                 {
                   label: "Curiosity Points",
                   value: child.xp,
                   delta: "Level 04 Explorer",
-                  tone: "text-blue-600 bg-blue-50",
+                  tone: "text-[color:light-dark(var(--color-blue-600),var(--vq-accent-blue))] bg-[color:light-dark(var(--color-blue-50),var(--vq-tone-blue))]",
                 },
                 {
                   label: "Lab Completion",
                   value: child.labCompletion,
                   delta: "8 of 9 labs verified",
-                  tone: "text-violet-600 bg-violet-50",
+                  tone: "text-[color:light-dark(var(--color-violet-600),var(--vq-accent-purple))] bg-[color:light-dark(var(--color-violet-50),var(--vq-tone-purple))]",
                 },
                 {
                   label: "Learning Streak",
                   value: child.streak,
                   delta: "Personal best!",
-                  tone: "text-amber-700 bg-amber-50",
+                  tone: "text-[color:light-dark(var(--color-amber-700),var(--vq-accent-amber))] bg-[color:light-dark(var(--color-amber-50),var(--vq-tone-amber))]",
                 },
               ].map((kpi) => (
                 <div
                   key={kpi.label}
-                  className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm"
+                  className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-5 shadow-sm"
                 >
-                  <p className="text-xs font-semibold text-slate-500">
+                  <p className="text-xs font-semibold text-[color:var(--vq-muted)]">
                     {kpi.label}
                   </p>
-                  <p className="mt-2 text-3xl font-extrabold tracking-tight text-[#172d4a]">
+                  <p className="mt-2 text-3xl font-extrabold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]">
                     {kpi.value}
                   </p>
                   <span
@@ -239,17 +241,17 @@ export function ParentPortal({ user }: { user: SessionUser }) {
 
             {/* Area Chart + Radar Chart */}
             <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr]">
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <h2 className="text-base font-bold text-[#172d4a]">
+                    <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                       Learning & Virtual Lab Hours
                     </h2>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-[color:var(--vq-muted)]">
                       Total study time compared with hands-on lab sessions
                     </p>
                   </div>
-                  <div className="flex gap-1 rounded-lg bg-slate-100 p-1">
+                  <div className="flex gap-1 rounded-lg bg-[color:light-dark(var(--color-slate-100),var(--vq-raised))] p-1">
                     {(["weekly", "monthly"] as const).map((t) => (
                       <button
                         key={t}
@@ -257,8 +259,8 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                         onClick={() => setTimeframe(t)}
                         className={`rounded-md px-3 py-1 text-[11px] font-semibold capitalize transition cursor-pointer ${
                           timeframe === t
-                            ? "bg-white text-[#172d4a] shadow-sm"
-                            : "text-slate-500"
+                            ? "bg-[color:var(--vq-surface)] text-[color:light-dark(#172d4a,var(--vq-ink))] shadow-sm"
+                            : "text-[color:var(--vq-muted)]"
                         }`}
                       >
                         {t}
@@ -295,11 +297,11 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                 />
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   Subject Mastery Radar
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-[color:var(--vq-muted)]">
                   Balanced curiosity across STEM & Humanities
                 </p>
                 <div className="mt-3">
@@ -310,11 +312,11 @@ export function ParentPortal({ user }: { user: SessionUser }) {
 
             {/* Donut + Mentor Notes */}
             <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   Time Distribution
                 </h2>
-                <p className="mb-4 text-xs text-slate-500">
+                <p className="mb-4 text-xs text-[color:var(--vq-muted)]">
                   Where {child.name.split(" ")[0]} spends learning energy
                 </p>
                 <ModernDonutChart
@@ -329,8 +331,8 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                 />
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#172d4a]">
+              <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+                <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   Recent Milestones & Mentor Notes
                 </h2>
                 <div className="mt-4 space-y-3">
@@ -353,15 +355,15 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                   ].map((item) => (
                     <div
                       key={item.title}
-                      className="rounded-xl border border-slate-100 bg-slate-50/70 p-4"
+                      className="rounded-xl border border-[color:light-dark(var(--color-slate-100),var(--vq-border))] bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))]/70 p-4"
                     >
-                      <p className="text-sm font-bold text-[#172d4a]">
+                      <p className="text-sm font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                         {item.title}
                       </p>
-                      <p className="text-[11px] font-medium text-[#16a36a]">
+                      <p className="text-[11px] font-medium text-[color:light-dark(#16a36a,var(--vq-accent-green))]">
                         {item.meta}
                       </p>
-                      <p className="mt-1 text-xs text-slate-600">{item.note}</p>
+                      <p className="mt-1 text-xs text-[color:var(--vq-muted)]">{item.note}</p>
                     </div>
                   ))}
                 </div>
@@ -390,24 +392,24 @@ export function ParentPortal({ user }: { user: SessionUser }) {
 
         {/* LABS & QUESTS TAB */}
         {activeTab === "labs" && (
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-base font-bold text-[#172d4a]">
+          <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+            <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
               Virtual Lab & AI Guide Activity Log
             </h2>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-[color:var(--vq-muted)]">
               AI Quest Guide provides Socratic hints rather than direct answers.
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 text-slate-400">
+                  <tr className="border-b border-[color:light-dark(var(--color-slate-200),var(--vq-border))] text-[color:var(--vq-subtle)]">
                     <th className="py-3 font-semibold">Activity</th>
                     <th className="py-3 font-semibold">Subject</th>
                     <th className="py-3 font-semibold">AI Hints Used</th>
                     <th className="py-3 font-semibold">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[color:light-dark(var(--color-slate-100),var(--vq-border))]">
                   {[
                     ["Simple Circuits & Voltage Lab", "Physics", "2 hints", "Completed · 96%"],
                     ["Molecule Shapes (3D VSEPR)", "Chemistry", "1 hint", "Completed · 92%"],
@@ -415,11 +417,11 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                     ["GeoGebra Platonic Solids 3D", "Math", "3 hints", "Completed · 90%"],
                   ].map(([act, subj, hints, status]) => (
                     <tr key={act}>
-                      <td className="py-3 font-semibold text-[#172d4a]">{act}</td>
-                      <td className="py-3 text-slate-600">{subj}</td>
-                      <td className="py-3 text-slate-600">{hints}</td>
+                      <td className="py-3 font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))]">{act}</td>
+                      <td className="py-3 text-[color:var(--vq-muted)]">{subj}</td>
+                      <td className="py-3 text-[color:var(--vq-muted)]">{hints}</td>
                       <td className="py-3">
-                        <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700">
+                        <span className="rounded-full bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))] px-2.5 py-1 text-[11px] font-semibold text-[color:light-dark(var(--color-emerald-700),var(--vq-accent-green))]">
                           {status}
                         </span>
                       </td>
@@ -453,15 +455,15 @@ export function ParentPortal({ user }: { user: SessionUser }) {
             ].map((rep) => (
               <div
                 key={rep.title}
-                className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm"
+                className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-5 shadow-sm"
               >
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#16a36a]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[color:light-dark(#16a36a,var(--vq-accent-green))]">
                   {rep.date}
                 </span>
-                <h3 className="mt-2 text-base font-bold text-[#172d4a]">
+                <h3 className="mt-2 text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                   {rep.title}
                 </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">
+                <p className="mt-1.5 text-xs leading-relaxed text-[color:var(--vq-muted)]">
                   {rep.summary}
                 </p>
               </div>
@@ -471,17 +473,17 @@ export function ParentPortal({ user }: { user: SessionUser }) {
 
         {/* PARENTAL CONTROLS TAB */}
         {activeTab === "controls" && (
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-base font-bold text-[#172d4a]">
+          <div className="rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[color:var(--vq-surface)] p-6 shadow-sm">
+            <h2 className="text-base font-bold text-[color:light-dark(#172d4a,var(--vq-ink))]">
               Safety, Screen Time & Notification Controls
             </h2>
             <div className="mt-5 space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-100 bg-slate-50/70 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-[color:light-dark(var(--color-slate-100),var(--vq-border))] bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))]/70 p-4">
                 <div>
-                  <p className="text-sm font-semibold text-[#172d4a]">
+                  <p className="text-sm font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                     Daily Learning Screen Limit ({dailyLimitHrs} hrs/day)
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-[color:var(--vq-muted)]">
                     Gentle break reminders after reaching daily goal.
                   </p>
                 </div>
@@ -517,13 +519,13 @@ export function ParentPortal({ user }: { user: SessionUser }) {
               ].map((ctrl) => (
                 <div
                   key={ctrl.title}
-                  className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 bg-slate-50/70 p-4"
+                  className="flex items-center justify-between gap-4 rounded-xl border border-[color:light-dark(var(--color-slate-100),var(--vq-border))] bg-[color:light-dark(var(--color-slate-50),var(--vq-raised))]/70 p-4"
                 >
                   <div>
-                    <p className="text-sm font-semibold text-[#172d4a]">
+                    <p className="text-sm font-semibold text-[color:light-dark(#172d4a,var(--vq-ink))]">
                       {ctrl.title}
                     </p>
-                    <p className="text-xs text-slate-500">{ctrl.desc}</p>
+                    <p className="text-xs text-[color:var(--vq-muted)]">{ctrl.desc}</p>
                   </div>
                   <button
                     type="button"
@@ -531,7 +533,7 @@ export function ParentPortal({ user }: { user: SessionUser }) {
                     className={`rounded-full px-4 py-1.5 text-xs font-semibold transition cursor-pointer ${
                       ctrl.val
                         ? "bg-[#16a36a] text-white"
-                        : "bg-slate-200 text-slate-700"
+                        : "bg-[color:light-dark(var(--color-slate-200),var(--vq-border))] text-[color:var(--vq-ink)]"
                     }`}
                   >
                     {ctrl.val ? "Enabled" : "Disabled"}

@@ -23,8 +23,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Chambers, valves, aorta & blood circulation pathways",
     tag: "NCERT Class 10",
     url: "/labs/human-heart-3d.html",
-    accent: "border-rose-300/80 bg-rose-50/70",
-    badgeBg: "bg-rose-100 text-rose-700",
+    accent: "border-rose-300/80 bg-[color:light-dark(var(--color-rose-50),var(--vq-tone-red))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-rose-100),var(--vq-tone-red))] text-[color:light-dark(var(--color-rose-700),var(--vq-accent-red))]",
   },
   {
     id: "leaf-stomata-3d",
@@ -33,8 +33,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Temporary mount, guard cells & stomatal pore mechanics",
     tag: "Microscopy 3D",
     url: "/labs/leaf-stomata-3d.html",
-    accent: "border-emerald-300/80 bg-emerald-50/70",
-    badgeBg: "bg-emerald-100 text-emerald-700",
+    accent: "border-emerald-300/80 bg-[color:light-dark(var(--color-emerald-50),var(--vq-tone-green))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-emerald-100),var(--vq-tone-green))] text-[color:light-dark(var(--color-emerald-700),var(--vq-accent-green))]",
   },
   {
     id: "dna-helix-3d",
@@ -43,8 +43,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Antiparallel strands, Chargaff A–T / G–C base pairing",
     tag: "Genetics 3D",
     url: "/labs/dna-helix-3d.html",
-    accent: "border-violet-300/80 bg-violet-50/70",
-    badgeBg: "bg-violet-100 text-violet-700",
+    accent: "border-violet-300/80 bg-[color:light-dark(var(--color-violet-50),var(--vq-tone-purple))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-violet-100),var(--vq-tone-purple))] text-[color:light-dark(var(--color-violet-700),var(--vq-accent-purple))]",
   },
   {
     id: "acid-base-titration-3d",
@@ -53,8 +53,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Burette drops, phenolphthalein endpoint & molarity",
     tag: "Volumetric 3D",
     url: "/labs/acid-base-titration-3d.html",
-    accent: "border-blue-300/80 bg-blue-50/70",
-    badgeBg: "bg-blue-100 text-blue-700",
+    accent: "border-blue-300/80 bg-[color:light-dark(var(--color-blue-50),var(--vq-tone-blue))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-blue-100),var(--vq-tone-blue))] text-[color:light-dark(var(--color-blue-700),var(--vq-accent-blue))]",
   },
   {
     id: "acids-and-bases-3d",
@@ -63,8 +63,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Litmus, zinc reaction, carbonate test & pH behavior",
     tag: "NCERT Class 10",
     url: "/labs/acids-and-bases-3d.html",
-    accent: "border-teal-300/80 bg-teal-50/70",
-    badgeBg: "bg-teal-100 text-teal-700",
+    accent: "border-teal-300/80 bg-[color:light-dark(var(--color-teal-50),var(--vq-tone-green))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-teal-100),var(--vq-tone-green))] text-[color:light-dark(var(--color-teal-700),var(--vq-accent-green))]",
   },
   {
     id: "ohms-law-3d",
@@ -73,8 +73,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Live V = I × R circuit, electron drift & bulb luminosity",
     tag: "NCERT Class 10",
     url: "/labs/ohms-law-3d.html",
-    accent: "border-sky-300/80 bg-sky-50/70",
-    badgeBg: "bg-sky-100 text-sky-700",
+    accent: "border-sky-300/80 bg-[color:light-dark(var(--color-sky-50),var(--vq-tone-blue))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-sky-100),var(--vq-tone-blue))] text-[color:light-dark(var(--color-sky-700),var(--vq-accent-blue))]",
   },
   {
     id: "projectile-motion-3d",
@@ -83,8 +83,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Parabolic trajectories across Earth, Moon & Mars",
     tag: "Kinematics 3D",
     url: "/labs/projectile-motion-3d.html",
-    accent: "border-amber-300/80 bg-amber-50/70",
-    badgeBg: "bg-amber-100 text-amber-700",
+    accent: "border-amber-300/80 bg-[color:light-dark(var(--color-amber-50),var(--vq-tone-amber))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-amber-100),var(--vq-tone-amber))] text-[color:light-dark(var(--color-amber-700),var(--vq-accent-amber))]",
   },
   {
     id: "solar-system-3d",
@@ -93,8 +93,8 @@ const LOCAL_3D_LABS: Local3DLab[] = [
     subtitle: "Kepler planetary orbits, Saturn rings & orbital speed",
     tag: "NASA Open Science",
     url: "/labs/solar-system-3d.html",
-    accent: "border-indigo-300/80 bg-indigo-50/70",
-    badgeBg: "bg-indigo-100 text-indigo-700",
+    accent: "border-indigo-300/80 bg-[color:light-dark(var(--color-indigo-50),var(--vq-tone-blue))]/70",
+    badgeBg: "bg-[color:light-dark(var(--color-indigo-100),var(--vq-tone-blue))] text-[color:light-dark(var(--color-indigo-700),var(--vq-accent-blue))]",
   },
 ]
 
@@ -118,20 +118,20 @@ export function Interactive3DLabsStudio() {
       {/* Studio Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#2563eb]">
+          <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[color:light-dark(#2563eb,var(--vq-link))]">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
             Interactive 3D Lab Studio · Live WebGL
           </span>
-          <h2 className="mt-1 text-xl font-bold tracking-tight text-[#172d4a]">
+          <h2 className="mt-1 text-xl font-bold tracking-tight text-[color:light-dark(#172d4a,var(--vq-ink))]">
             Hands-On 3D Science Simulations
           </h2>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-0.5 text-xs text-[color:var(--vq-muted)]">
             Select any 3D model below to inspect, rotate, and run experiments
             directly inside the lab viewport.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 rounded-xl bg-white/80 p-1 ring-1 ring-slate-200/80">
+        <div className="flex flex-wrap gap-1.5 rounded-xl bg-[color:var(--vq-surface)]/80 p-1 ring-1 ring-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80">
           {(["All", "Physics", "Chemistry", "Biology", "Astronomy"] as const).map((tab) => (
             <button
               key={tab}
@@ -140,7 +140,7 @@ export function Interactive3DLabsStudio() {
               className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer ${
                 filter === tab
                   ? "bg-[#111827] text-white shadow-sm"
-                  : "text-slate-600 hover:text-[#172d4a]"
+                  : "text-[color:var(--vq-muted)] hover:text-[color:light-dark(#172d4a,var(--vq-ink))]"
               }`}
             >
               {tab}
@@ -161,7 +161,7 @@ export function Interactive3DLabsStudio() {
               className={`group flex flex-col justify-between rounded-2xl border p-3.5 text-left transition cursor-pointer ${
                 isSelected
                   ? `${lab.accent} ring-2 ring-[#2563eb]/40 shadow-sm`
-                  : "border-white/85 bg-white/75 hover:bg-white hover:shadow-xs"
+                  : "border-[color:light-dark(#fff,var(--vq-border))]/85 bg-[color:var(--vq-surface)]/75 hover:bg-[color:var(--vq-surface)] hover:shadow-xs"
               }`}
             >
               <div>
@@ -171,22 +171,22 @@ export function Interactive3DLabsStudio() {
                   >
                     {lab.subject}
                   </span>
-                  <span className="text-[10px] font-semibold text-slate-400">
+                  <span className="text-[10px] font-semibold text-[color:var(--vq-subtle)]">
                     {lab.tag}
                   </span>
                 </div>
-                <p className="mt-2.5 text-xs font-bold text-[#172d4a] sm:text-sm">
+                <p className="mt-2.5 text-xs font-bold text-[color:light-dark(#172d4a,var(--vq-ink))] sm:text-sm">
                   {lab.title}
                 </p>
-                <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
+                <p className="mt-1 text-[11px] leading-relaxed text-[color:var(--vq-muted)]">
                   {lab.subtitle}
                 </p>
               </div>
               <div className="mt-3 flex items-center justify-between text-[11px] font-semibold">
-                <span className={isSelected ? "text-[#2563eb]" : "text-slate-400"}>
+                <span className={isSelected ? "text-[color:light-dark(#2563eb,var(--vq-link))]" : "text-[color:var(--vq-subtle)]"}>
                   {isSelected ? "● Active in Viewport" : "Launch 3D Lab"}
                 </span>
-                <span className="text-slate-400 transition group-hover:translate-x-0.5">
+                <span className="text-[color:var(--vq-subtle)] transition group-hover:translate-x-0.5">
                   →
                 </span>
               </div>
@@ -196,7 +196,7 @@ export function Interactive3DLabsStudio() {
       </div>
 
       {/* Professional 3D Lab Viewport */}
-      <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200/80 bg-[#0b1324] shadow-[0_18px_50px_rgba(15,23,42,0.18)]">
+      <div className="mt-5 overflow-hidden rounded-2xl border border-[color:light-dark(var(--color-slate-200),var(--vq-border))]/80 bg-[#0b1324] shadow-[0_18px_50px_rgba(15,23,42,0.18)]">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-[#111c33] px-4 py-2.5 text-white">
           <div className="flex items-center gap-2.5">
             <span className="flex gap-1.5">

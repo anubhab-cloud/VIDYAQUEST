@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "./student-portal.css";
 @import "./dashboard-polish.css";
+@import "./color-theme.css";
 
 @custom-variant dark (&:is(.dark *));
 

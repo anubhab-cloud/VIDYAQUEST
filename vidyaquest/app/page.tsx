@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { BrandLogo } from "@/components/brand-logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const navItems = [
   ["Home", "#home"], ["Explore", "#world"], ["Virtual Labs", "#labs"],
@@ -48,7 +49,7 @@ function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true }); onScroll()
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
-  return <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><nav className="nav-shell" aria-label="Main navigation"><a className="brand" href="#home" aria-label="VidyaQuest home"><BrandLogo className="brand-mark"/><span>vidya<span>quest</span></span></a><div className="desktop-nav">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</div><div className="nav-actions"><a className="login-link" href="/login">Log in</a><a className="nav-cta" href="/register">Get started <Icon name="arrow" size={15}/></a></div><button className="menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen(!open)}><Icon name={open ? "check" : "menu"}/></button></nav>{open && <div className="mobile-nav">{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)}>{label}<Icon name="arrow" size={16}/></a>)}<a href="/login" onClick={() => setOpen(false)}>Log in</a><a className="mobile-cta" href="/register" onClick={() => setOpen(false)}>Get started <Icon name="arrow" size={16}/></a></div>}</header>
+  return <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><nav className="nav-shell" aria-label="Main navigation"><a className="brand" href="#home" aria-label="VidyaQuest home"><BrandLogo className="brand-mark"/><span>vidya<span>quest</span></span></a><div className="desktop-nav">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</div><div className="nav-actions"><ThemeToggle/><a className="login-link" href="/login">Log in</a><a className="nav-cta" href="/register">Get started <Icon name="arrow" size={15}/></a></div><ThemeToggle className="mobile-theme-toggle"/><button className="menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen(!open)}><Icon name={open ? "check" : "menu"}/></button></nav>{open && <div className="mobile-nav">{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)}>{label}<Icon name="arrow" size={16}/></a>)}<a href="/login" onClick={() => setOpen(false)}>Log in</a><a className="mobile-cta" href="/register" onClick={() => setOpen(false)}>Get started <Icon name="arrow" size={16}/></a></div>}</header>
 }
 
 function HeroVisual() {

@@ -27,7 +27,12 @@ export interface OpenSource3DModel {
   licenseBadge: string
   source: string
   url: string
+  embedUrl?: string
   studyConcepts: string[]
+}
+
+function phetEmbedUrl(simulation: string) {
+  return `https://phet.colorado.edu/sims/html/${simulation}/latest/${simulation}_en.html`
 }
 
 export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
@@ -41,6 +46,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/pendulum-lab",
+    embedUrl: phetEmbedUrl("pendulum-lab"),
     studyConcepts: [
       "Period dependence on length & gravity (T = 2*pi*sqrt(L/g))",
       "Kinetic & potential energy conservation",
@@ -56,6 +62,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc",
+    embedUrl: phetEmbedUrl("circuit-construction-kit-dc"),
     studyConcepts: [
       "Ohm's Law (V = IR) and series vs. parallel networks",
       "Current flow, voltage drops, and meter measurement",
@@ -71,6 +78,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/wave-on-a-string",
+    embedUrl: phetEmbedUrl("wave-on-a-string"),
     studyConcepts: [
       "Frequency, wavelength, amplitude, and wave speed relationships",
       "Wave reflection at fixed, loose, and open ends",
@@ -86,6 +94,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/projectile-motion",
+    embedUrl: phetEmbedUrl("projectile-motion"),
     studyConcepts: [
       "Independence of horizontal and vertical motion under gravity",
       "Launch angle, initial velocity, range, and apex",
@@ -103,6 +112,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/molecule-shapes",
+    embedUrl: phetEmbedUrl("molecule-shapes"),
     studyConcepts: [
       "VSEPR 3D geometries from electron-pair repulsion",
       "Bond angles with single/double/triple bonds and lone pairs",
@@ -272,6 +282,7 @@ export const OPEN_SOURCE_3D_MODELS: OpenSource3DModel[] = [
     licenseBadge: "CC BY 4.0",
     source: "PhET Interactive Simulations (CU Boulder)",
     url: "https://phet.colorado.edu/en/simulations/gravity-and-orbits",
+    embedUrl: phetEmbedUrl("gravity-and-orbits"),
     studyConcepts: [
       "Newton's Law of Universal Gravitation and inverse-square force vectors",
       "Orbital velocity, elliptical vs. circular orbits, and escape paths",

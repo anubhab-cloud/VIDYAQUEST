@@ -235,3 +235,20 @@
     min-height: 44px;
   }
 }
+
+:global(.dark) .page { color: var(--vq-ink); }
+:global(.dark) :is(.meta, .cardFooter, .card p, .empty) { color: var(--vq-muted); }
+:global(.dark) :is(.filters button, .save) {
+  background: var(--vq-surface);
+  border-color: var(--vq-border);
+  color: var(--vq-ink);
+}
+:global(.dark) :is(.filters button, .save):hover { background: var(--vq-raised); }
+:global(.dark) .filters button[aria-pressed="true"] {
+  background: var(--vq-tone-blue);
+  border-color: var(--vq-link);
+}
+:global(.dark) .save[aria-pressed="true"] {
+  background: var(--vq-tone-amber);
+  color: var(--vq-accent-amber);
+}
